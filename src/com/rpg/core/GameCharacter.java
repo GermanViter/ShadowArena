@@ -18,7 +18,7 @@ public abstract class GameCharacter {
         this.currentHP -= amount;
         if (this.currentHP < 0)
             this.currentHP = 0;
-        System.out.println(ConsoleColors.RED + this.name + " a pris " + amount + " dégâts! " + ConsoleColors.RESET + 
+        ConsoleUtils.slowPrint(ConsoleColors.RED + this.name + " a pris " + amount + " dégâts! " + ConsoleColors.RESET + 
                            "(HP: " + ConsoleColors.GREEN + this.currentHP + ConsoleColors.RESET + "/" + this.MAX_HP + ")");
     }
 
