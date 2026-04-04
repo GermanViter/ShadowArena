@@ -18,7 +18,8 @@ public abstract class GameCharacter {
         this.currentHP -= amount;
         if (this.currentHP < 0)
             this.currentHP = 0;
-        System.out.println(this.name + " took " + amount + " damage! (HP: " + this.currentHP + "/" + this.MAX_HP + ")");
+        System.out
+                .println(this.name + " a pris " + amount + " degats! (HP: " + this.currentHP + "/" + this.MAX_HP + ")");
     }
 
     public String getName() {

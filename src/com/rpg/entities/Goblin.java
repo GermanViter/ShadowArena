@@ -5,11 +5,11 @@ import com.rpg.core.GameCharacter;
 public class Goblin extends Monster {
 
     public Goblin() {
-        super("Sneaky Goblin", 50, 50, new String[]{
-            "bites you with dirty teeth!",
-            "scratches your face!",
-            "throws a sharp rock at you!",
-            "tries to steal your lunch but trips and hits you!"
+        super("Gobelin Sournois", 50, 50, new String[]{
+            "vous mord avec des dents sales!",
+            "vous griffe le visage!",
+            "vous lance une pierre tranchante!",
+            "essaie de voler votre déjeuner mais trébuche et vous frappe!"
         });
     }
 

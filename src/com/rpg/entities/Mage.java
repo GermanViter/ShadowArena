@@ -11,14 +11,14 @@ public class Mage extends Hero implements Regenerable {
 
     @Override
     public void attack(GameCharacter target) {
-        System.out.println(getName() + " casts a fireball at " + target.getName() + "!");
+        System.out.println(getName() + " lance une boule de feu sur " + target.getName() + "!");
         target.takeDamage(25);
     }
 
     @Override
     public void regenerate() {
         if (this.getCurrentHP() < 100) {
-            System.out.println(getName() + " uses magic to heal!");
+            System.out.println(getName() + " utilise la magie pour se soigner!");
             this.setCurrentHP(100);
 
         }
