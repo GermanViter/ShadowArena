@@ -34,7 +34,6 @@ public class Main {
         ConsoleUtils.slowPrint("\n" + ConsoleColors.PURPLE_BOLD + "--- Le combat commence dans la Shadow Arena ! ---"
                 + ConsoleColors.RESET);
 
-        // On initialise le premier monstre
         Monster activeMonster = monsters[rd.nextInt(monsters.length)];
 
         while (pl.isAlive()) {
@@ -66,24 +65,26 @@ public class Main {
                 pl.defend();
             }
 
-            // Vérification si le monstre est vaincu
             if (!activeMonster.isAlive()) {
                 ConsoleUtils.slowPrint("\n" + ConsoleColors.GREEN_BOLD + "FÉLICITATIONS ! Le " + activeMonster.getName()
                         + " a été vaincu !" + ConsoleColors.RESET);
                 defeatedMonsters++;
-                
+
                 if (defeatedMonsters < 3) {
-                    ConsoleUtils.slowPrint(ConsoleColors.YELLOW + "Un nouveau monstre apparaît pour venger son camarade !" + ConsoleColors.RESET);
+                    ConsoleUtils.slowPrint(ConsoleColors.YELLOW
+                            + "Un nouveau monstre apparaît pour venger son camarade !" + ConsoleColors.RESET);
                     // On génère un NOUVEAU monstre pour le tour suivant
                     activeMonster = (rd.nextInt(2) == 0) ? new Goblin() : new Dragon();
                 }
             }
 
             if (defeatedMonsters >= 3) {
-                ConsoleUtils.slowPrint("\n" + ConsoleColors.CYAN_BOLD + "***********************************************" + ConsoleColors.RESET);
+                ConsoleUtils.slowPrint("\n" + ConsoleColors.CYAN_BOLD
+                        + "***********************************************" + ConsoleColors.RESET);
                 ConsoleUtils.slowPrint(ConsoleColors.GREEN_BOLD + "VICTOIRE TOTALE ! " + pl.getName()
                         + " a survécu à 3 vagues et triomphé de la Shadow Arena !" + ConsoleColors.RESET);
-                ConsoleUtils.slowPrint(ConsoleColors.CYAN_BOLD + "***********************************************" + ConsoleColors.RESET);
+                ConsoleUtils.slowPrint(ConsoleColors.CYAN_BOLD + "***********************************************"
+                        + ConsoleColors.RESET);
                 break;
             }
             ConsoleUtils.slowPrint(ConsoleColors.PURPLE + "--------------------------------" + ConsoleColors.RESET);

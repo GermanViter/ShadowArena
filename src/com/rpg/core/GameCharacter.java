@@ -18,9 +18,10 @@ public abstract class GameCharacter {
 
     public void takeDamage(int amount) {
         if (this.isDefending) {
-            amount = 0; // Aucun dégât reçu !
+            amount = 0;
             ConsoleUtils.slowPrint(
-                    ConsoleColors.BLUE + this.name + " bloque parfaitement l'attaque et ne reçoit aucun dégât !" + ConsoleColors.RESET);
+                    ConsoleColors.BLUE + this.name + " bloque parfaitement l'attaque et ne reçoit aucun dégât !"
+                            + ConsoleColors.RESET);
             this.isDefending = false;
         }
         this.currentHP -= amount;
