@@ -6,7 +6,7 @@ import com.rpg.core.Regenerable;
 public class Mage extends Hero implements Regenerable {
 
     public Mage(String name) {
-        super(name, 100, 100);
+        super(name, 400, 100, false);
     }
 
     @Override
@@ -17,10 +17,12 @@ public class Mage extends Hero implements Regenerable {
 
     @Override
     public void regenerate() {
-        if (this.getCurrentHP() < 100) {
+        if (this.getCurrentHP() < 400 || this.getSpecialIsUsed() == false) {
             System.out.println(getName() + " utilise la magie pour se soigner!");
-            this.setCurrentHP(100);
-
+            this.setCurrentHP(400);
+            this.setSpecialIsUsed(true);
+        } else if (this.getSpecialIsUsed() == true) {
+            System.out.println(getName() + " a deja utilise sa magie pour se soigner");
         }
     }
 }

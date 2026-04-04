@@ -6,7 +6,7 @@ import com.rpg.core.HeavyAttack;
 public class Warrior extends Hero implements HeavyAttack {
 
     public Warrior(String name) {
-        super(name, 150, 150);
+        super(name, 450, 450, false);
     }
 
     @Override
@@ -17,7 +17,13 @@ public class Warrior extends Hero implements HeavyAttack {
 
     @Override
     public void heavyAttack(GameCharacter target) {
-        System.out.println(getName() + " fait une attaque lourde sur " + target.getName() + "!");
-        target.takeDamage(30);
+        if (this.getSpecialIsUsed() == false) {
+
+            System.out.println(getName() + " fait une attaque lourde sur " + target.getName() + "!");
+            target.takeDamage(30);
+            this.setSpecialIsUsed(true);
+        } else {
+            System.out.println(getName() + " a deja utiliser son attaque lourde");
+        }
     }
 }
