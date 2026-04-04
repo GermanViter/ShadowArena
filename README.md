@@ -12,7 +12,7 @@ Le concept de ce jeu vient de [Donjons et Dragons](https://fr.wikipedia.org/wiki
 | Mage          | 25  | 100 | régénération          |
 | Warrior       | 20  | 150 | attaque lourde : +10  |
 |               |     |     |                       |
-
+> Tous les speciaux ont une limite d'utilisation de 1
 ---
 
 ## Structure du projet
