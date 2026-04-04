@@ -1,3 +1,8 @@
+package com.rpg.entities;
+
+import com.rpg.core.GameCharacter;
+import com.rpg.core.Regenerable;
+
 public class Mage extends Hero implements Regenerable {
 
     public Mage(String name) {

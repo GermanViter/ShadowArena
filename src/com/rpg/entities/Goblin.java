@@ -1,3 +1,7 @@
+package com.rpg.entities;
+
+import com.rpg.core.GameCharacter;
+
 public class Goblin extends Monster {
 
     public Goblin() {
