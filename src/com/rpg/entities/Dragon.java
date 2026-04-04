@@ -5,11 +5,11 @@ import com.rpg.core.GameCharacter;
 public class Dragon extends Monster {
 
     public Dragon() {
-        super("Elder Dragon", 300, 300, new String[]{
-            "breathes ancient fire on you!",
-            "slams its massive tail into you!",
-            "roars, creating a shockwave!",
-            "bites down with the strength of mountains!"
+        super("Dragon Ancien", 300, 300, new String[]{
+            "crache un feu ancestral sur vous!",
+            "vous frappe avec sa queue massive!",
+            "rugit, créant une onde de choc!",
+            "mord avec la force des montagnes!"
         });
     }
 
