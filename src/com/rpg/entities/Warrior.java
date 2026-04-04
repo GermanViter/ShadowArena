@@ -1,3 +1,7 @@
+package com.rpg.entities;
+
+import com.rpg.core.GameCharacter;
+
 public class Warrior extends Hero {
 
     public Warrior(String name) {
