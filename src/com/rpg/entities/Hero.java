@@ -5,9 +5,9 @@ import com.rpg.core.GameCharacter;
 public abstract class Hero extends GameCharacter {
     private boolean specialIsUsed;
 
-    public Hero(String name, int hp, int maxHp, boolean spe) {
+    public Hero(String name, int hp, int maxHp) {
         super(name, hp, maxHp);
-        this.specialIsUsed = spe;
+        this.specialIsUsed = false;
     }
 
     public void setSpecialIsUsed(boolean status) {
