@@ -1,4 +1,5 @@
 # Shadow Arena
+> *Disclamer : tous les elements de style comme les couleurs de texte, les messages en lien avec l'histoire et l'affichage progressif du texte ont ete entierement genere par IA*
 ## Description
 Le concept de ce jeu vient de [Donjons et Dragons](https://fr.wikipedia.org/wiki/Donjons_et_Dragons). La seule différence avec le jeu de société est que le maître du jeu est aléatoire. C'est-à-dire que les événements du jeu, comme les apparitions de monstres, sont totalement aléatoires. 
 
