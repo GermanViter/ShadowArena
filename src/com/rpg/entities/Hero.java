@@ -1,4 +1,5 @@
-package com.rpg.entities;
-
-public class Hero {
+public abstract class Hero extends GameCharacter {
+    public Hero(String name, int hp, int maxHp) {
+        super(name, hp, maxHp);
+    }
 }
