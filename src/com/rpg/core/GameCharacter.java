@@ -16,13 +16,26 @@ public abstract class GameCharacter {
 
     public void takeDamage(int amount) {
         this.currentHP -= amount;
-        if (this.currentHP < 0) this.currentHP = 0;
+        if (this.currentHP < 0)
+            this.currentHP = 0;
         System.out.println(this.name + " took " + amount + " damage! (HP: " + this.currentHP + "/" + this.MAX_HP + ")");
     }
 
-    public String getName() { return name; }
-    public int getCurrentHP() { return currentHP; }
-    public int getMaxHP() { return MAX_HP; }
+    public String getName() {
+        return name;
+    }
+
+    public int getCurrentHP() {
+        return currentHP;
+    }
+
+    public void setCurrentHP(int hp) {
+        this.currentHP = hp;
+    }
+
+    public int getMaxHP() {
+        return MAX_HP;
+    }
 
     public boolean isAlive() {
         return this.currentHP > 0;
