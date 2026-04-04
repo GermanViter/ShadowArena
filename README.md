@@ -23,3 +23,9 @@ Le projet est divisé en plusieurs packages qui ont des utilités différentes.
 - **src.com.rpg.main** contient la classe *Main.java* où se trouve la boucle principale du jeu et où tous les événements du jeu se déroulent.
 
 - Pour faciliter la compilation du projet, un *Makefile* a été nécessaire.
+
+---
+
+## TODO
+- Ajouter des items a recuperer
+- Ajouter un systeme de defence
