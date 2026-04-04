@@ -1,6 +1,7 @@
 package com.rpg.entities;
 
 import com.rpg.core.GameCharacter;
+import com.rpg.core.ConsoleColors;
 
 public class Dragon extends Monster {
 
@@ -15,7 +16,7 @@ public class Dragon extends Monster {
 
     @Override
     public void attack(GameCharacter target) {
-        System.out.println(getName() + " " + getRandomAttackMessage());
+        System.out.println(ConsoleColors.PURPLE_BOLD + getName() + ConsoleColors.RESET + " " + ConsoleColors.RED + getRandomAttackMessage() + ConsoleColors.RESET);
         target.takeDamage(40);
     }
 }
