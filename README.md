@@ -29,4 +29,4 @@ Le projet est divisé en plusieurs packages qui ont des utilités différentes.
 
 ## TODO
 - Ajouter des items a recuperer
-- Ajouter un systeme de defence
+- Ajouter du mana pour limiter le joueur
