@@ -8,7 +8,7 @@ public abstract class Monster extends GameCharacter {
     private String[] attackMessages;
 
     public Monster(String name, int hp, int maxHp, String[] messages) {
-        super(name, hp, maxHp);
+        super(name, hp, maxHp, 0, 0);
         this.attackMessages = messages;
         this.isDead = false;
     }

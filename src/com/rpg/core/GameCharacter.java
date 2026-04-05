@@ -6,12 +6,16 @@ public abstract class GameCharacter {
     private int currentHP;
     private final int MAX_HP;
     private boolean isDefending;
+    private int mana;
+    private final int MAX_MANA;
 
-    public GameCharacter(String name, int currentHP, int maxHP) {
+    public GameCharacter(String name, int currentHP, int maxHP, int mana, int maxMana) {
         this.name = name;
         this.currentHP = currentHP;
         this.MAX_HP = maxHP;
         this.isDefending = false;
+        this.mana = mana;
+        this.MAX_MANA = maxMana;
     }
 
     public abstract void attack(GameCharacter target);
@@ -32,7 +36,14 @@ public abstract class GameCharacter {
     }
 
     public void defend() {
+        if (this.getMana() < 60) {
+            ConsoleUtils.slowPrint(
+                    ConsoleColors.YELLOW + this.name + " n'a pas assez de mana pour se défendre."
+                            + ConsoleColors.RESET);
+            return;
+        }
         this.isDefending = true;
+        setMana(this.getMana() - 60);
         ConsoleUtils.slowPrint(
                 ConsoleColors.BLUE_BOLD + this.name + " se met en position de défense !" + ConsoleColors.RESET);
     }
@@ -59,5 +70,17 @@ public abstract class GameCharacter {
 
     public boolean isAlive() {
         return this.currentHP > 0;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
+
+    public int getMaxMana() {
+        return MAX_MANA;
     }
 }

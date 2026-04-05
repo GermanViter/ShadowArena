@@ -8,7 +8,7 @@ import com.rpg.core.ConsoleUtils;
 public class Mage extends Hero implements Regenerable {
 
     public Mage(String name) {
-        super(name, 400, 400);
+        super(name, 400, 400, 200, 200);
     }
 
     @Override
@@ -20,12 +20,15 @@ public class Mage extends Hero implements Regenerable {
 
     @Override
     public void regenerate() {
-        if (this.getCurrentHP() < 400 && !this.getSpecialIsUsed()) {
-            ConsoleUtils.slowPrint(ConsoleColors.GREEN_BOLD + getName() + " utilise la magie pour se soigner!" + ConsoleColors.RESET);
-            this.setCurrentHP(400);
-            this.setSpecialIsUsed(true);
-        } else if (this.getSpecialIsUsed()) {
-            ConsoleUtils.slowPrint(ConsoleColors.YELLOW + getName() + " a déjà utilisé sa magie pour se soigner." + ConsoleColors.RESET);
+        if (this.getCurrentHP() < this.getMaxHP() && this.getMana() >= 80) {
+            ConsoleUtils.slowPrint(
+                    ConsoleColors.GREEN_BOLD + getName() + " utilise la magie pour se soigner!" + ConsoleColors.RESET);
+            this.setCurrentHP(this.getMaxHP());
+            this.setMana(this.getMana() - 80);
+        } else if (this.getMana() < 80) {
+            ConsoleUtils.slowPrint(
+                    ConsoleColors.YELLOW + getName() + " n'a pas assez de mana pour se régénérer."
+                            + ConsoleColors.RESET);
         }
     }
 }

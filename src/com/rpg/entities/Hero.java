@@ -3,18 +3,9 @@ package com.rpg.entities;
 import com.rpg.core.GameCharacter;
 
 public abstract class Hero extends GameCharacter {
-    private boolean specialIsUsed;
 
-    public Hero(String name, int hp, int maxHp) {
-        super(name, hp, maxHp);
-        this.specialIsUsed = false;
+    public Hero(String name, int hp, int maxHp, int mana, int maxMana) {
+        super(name, hp, maxHp, mana, maxMana);
     }
 
-    public void setSpecialIsUsed(boolean status) {
-        this.specialIsUsed = status;
-    }
-
-    public boolean getSpecialIsUsed() {
-        return this.specialIsUsed;
-    }
 }

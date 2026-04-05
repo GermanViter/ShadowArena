@@ -47,7 +47,8 @@ public class Main {
             }
 
             ConsoleUtils.slowPrint("\n" + ConsoleColors.CYAN_BOLD + "--- VOTRE TOUR (HP: " + pl.getCurrentHP() + "/"
-                    + pl.getMaxHP() + ") ---" + ConsoleColors.RESET);
+                    + pl.getMaxHP() + ") (MANA: " + pl.getMana() + "/" + pl.getMaxMana() + ") ---"
+                    + ConsoleColors.RESET);
             ConsoleUtils.slowPrint(ConsoleColors.WHITE_BOLD
                     + "Actions : [1] Attaque Normale | [2] Capacité Spéciale | [3] Se Défendre" + ConsoleColors.RESET);
             ConsoleUtils.slowPrintNoLine("Que faites-vous ? ");
