@@ -2,15 +2,25 @@ package com.rpg.main;
 
 import com.rpg.entities.*;
 import com.rpg.core.*;
+import com.rpg.items.*;
 import java.util.Scanner;
 import java.util.Random;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
+
+        /*
+         * ####################################################
+         * #####Etat initial du jeux
+         * ####################################################
+         */
         Scanner sc = new Scanner(System.in);
         Random rd = new Random();
 
         int defeatedMonsters = 0;
+        ArrayList<GameItem> inventory = new ArrayList<>();
+        boolean lowHealthPotionGiven = false;
 
         String playerName = "";
         playerName = displayMenu(sc, playerName);
@@ -29,14 +39,27 @@ public class Main {
             return;
         }
 
-        Monster[] monsters = { new Goblin(), new Dragon() };
-
         ConsoleUtils.slowPrint("\n" + ConsoleColors.PURPLE_BOLD + "--- Le combat commence dans la Shadow Arena ! ---"
                 + ConsoleColors.RESET);
 
-        Monster activeMonster = monsters[rd.nextInt(monsters.length)];
+        Monster activeMonster = getRandomMonster(rd);
+
+        /*
+         * ####################################################
+         * #####Boucle de combat principale
+         * ####################################################
+         */
 
         while (pl.isAlive()) {
+            if (!lowHealthPotionGiven && pl.getCurrentHP() < (pl.getMaxHP() / 2)) {
+                inventory.add(new Potion());
+                lowHealthPotionGiven = true;
+                ConsoleUtils.slowPrint(
+                        "\n" + ConsoleColors.YELLOW + "--- VOS FORCES DÉCLINENT ! ---" + ConsoleColors.RESET);
+                ConsoleUtils.slowPrint(ConsoleColors.YELLOW
+                        + "Vous trouvez une potion de soin au sol ! Utilisez-la sagement." + ConsoleColors.RESET);
+            }
+
             ConsoleUtils.slowPrint("\n" + ConsoleColors.YELLOW_BOLD + "--- TOUR DE L'ENNEMI ---" + ConsoleColors.RESET);
             activeMonster.attack(pl);
 
@@ -49,8 +72,18 @@ public class Main {
             ConsoleUtils.slowPrint("\n" + ConsoleColors.CYAN_BOLD + "--- VOTRE TOUR (HP: " + pl.getCurrentHP() + "/"
                     + pl.getMaxHP() + ") (MANA: " + pl.getMana() + "/" + pl.getMaxMana() + ") ---"
                     + ConsoleColors.RESET);
+
             ConsoleUtils.slowPrint(ConsoleColors.WHITE_BOLD
                     + "Actions : [1] Attaque Normale | [2] Capacité Spéciale | [3] Se Défendre" + ConsoleColors.RESET);
+
+            if (!inventory.isEmpty()) {
+                ConsoleUtils.slowPrint(ConsoleColors.YELLOW + "Items disponibles : " + ConsoleColors.RESET);
+                for (int i = 0; i < inventory.size(); i++) {
+                    ConsoleUtils.slowPrint(ConsoleColors.YELLOW + "  [" + (i + 4) + "] " + inventory.get(i).getName()
+                            + " (" + inventory.get(i).getDescription() + ")" + ConsoleColors.RESET);
+                }
+            }
+
             ConsoleUtils.slowPrintNoLine("Que faites-vous ? ");
             String action = sc.nextLine();
 
@@ -64,6 +97,19 @@ public class Main {
                 }
             } else if (action.equals("3")) {
                 pl.defend();
+            } else {
+                try {
+                    int itemIndex = Integer.parseInt(action) - 4;
+                    if (itemIndex >= 0 && itemIndex < inventory.size()) {
+                        GameItem itemToUse = inventory.get(itemIndex);
+                        itemToUse.use(pl, activeMonster);
+                        inventory.remove(itemIndex);
+                    } else {
+                        ConsoleUtils.slowPrint(ConsoleColors.RED + "Action ou item invalide !" + ConsoleColors.RESET);
+                    }
+                } catch (NumberFormatException e) {
+                    ConsoleUtils.slowPrint(ConsoleColors.RED + "Entrée invalide !" + ConsoleColors.RESET);
+                }
             }
 
             if (!activeMonster.isAlive()) {
@@ -71,11 +117,15 @@ public class Main {
                         + " a été vaincu !" + ConsoleColors.RESET);
                 defeatedMonsters++;
 
+                Grenade loot = new Grenade();
+                inventory.add(loot);
+                ConsoleUtils.slowPrint(ConsoleColors.YELLOW + "Vous avez ramassé une " + loot.getName()
+                        + " sur le cadavre !" + ConsoleColors.RESET);
+
                 if (defeatedMonsters < 3) {
                     ConsoleUtils.slowPrint(ConsoleColors.YELLOW
                             + "Un nouveau monstre apparaît pour venger son camarade !" + ConsoleColors.RESET);
-                    // On génère un NOUVEAU monstre pour le tour suivant
-                    activeMonster = (rd.nextInt(2) == 0) ? new Goblin() : new Dragon();
+                    activeMonster = getRandomMonster(rd);
                 }
             }
 
@@ -92,6 +142,24 @@ public class Main {
         }
 
         sc.close();
+    }
+
+    public static Monster getRandomMonster(Random rd) {
+        int choice = rd.nextInt(5);
+        switch (choice) {
+            case 0:
+                return new Goblin();
+            case 1:
+                return new Dragon();
+            case 2:
+                return new Troll();
+            case 3:
+                return new GiantSnake();
+            case 4:
+                return new Cerberus();
+            default:
+                return new Goblin();
+        }
     }
 
     public static String displayMenu(Scanner sc, String pl) {

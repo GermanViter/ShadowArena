@@ -7,71 +7,87 @@
 
 
 ### Fonctionnalités Clés :
-- **Système de Combat Tour par Tour** : Attaquez, utilisez vos capacités spéciales ou défendez-vous.
-- **Vagues Aléatoires** : Chaque tour, un nouvel ennemi peut apparaitre.
-- **Effets Visuels ASCII** : Utilisation de couleurs ANSI pour une interface dynamique.
-- **Effet Typewriter** : Le texte s'affiche lettre par lettre pour eviter d'etre desoriente.
-- **Condition de Victoire** : Survivez à 3 éliminations de monstres pour gagner.
-
----
-
-## 🛠️ Concepts POO Démontrés
-
-1.  **Abstraction** : Utilisation de la classe `abstract GameCharacter`. On ne peut pas créer un "personnage" générique ; il doit être une entité concrète (Héros ou Monstre).
-2.  **Encapsulation** : Les attributs sensibles (`hp`, `name`, `isDefending`) sont `private`. L'accès et la modification se font via des méthodes sécurisées comme `takeDamage()` ou des getters/setters.
-3.  **Héritage** : Une hiérarchie claire : `GameCharacter` -> `Hero` -> `Warrior`. Cela permet de réutiliser le code commun à tous les personnages.
-4.  **Polymorphisme / Override** : La méthode `attack()` est définie dans la classe parente mais chaque sous-classe (Mage, Dragon) la surcharge pour définir son propre style de combat.
-5.  **Interfaces** : Utilisation de `Regenerable` et `HeavyAttack` pour définir des capacités uniques qui ne s'appliquent qu'à certains héros.
+- **Système de Mana** : Toutes les capacités spéciales et la défense consomment du mana. Gérez vos ressources avec soin !
+- **Inventaire & Loot** : Récupérez des **Grenades** sur les cadavres de vos ennemis et recevez une **Potion de survie** unique si vos points de vie tombent trop bas.
+- **Vagues Aléatoires** : Affrontez un bestiaire varié allant du simple Gobelin au terrifiant Cerbère.
+- **Effets Visuels & Typewriter** : Interface dynamique avec couleurs ANSI et affichage progressif du texte pour une immersion totale.
 
 ---
 
 ## ⚔️ Classes de Héros
 
-| Classe  | HP  | ATQ | Capacité Spéciale |
-| :---    | :-- | :-- | :--- |
-| **Mage**    | 400 | 25  | **Régénération** : Soigne tous les HP (1 seule utilisation). |
-| **Warrior** | 450 | 20  | **Attaque Lourde** : Inflige +10 dégâts (1 seule utilisation). |
+| Classe  | HP  | Mana | Capacité Spéciale |
+| :---    | :-- | :--- | :--- |
+| **Mage**    | 400 | 200  | **Régénération** (80 Mana) : Soigne tous les HP. |
+| **Warrior** | 450 | 200  | **Attaque Lourde** (80 Mana) : Inflige +10 dégâts bonus. |
+
+*Note : La **Défense** consomme 80 Mana et bloque 100% des dégâts du prochain tour.*
+
+---
+
+## 👹 Bestiaire de l'Arène
+L'arène génère aléatoirement l'un des monstres suivants :
+- **Gobelin Sournois** (50 HP) : Faible mais vicieux.
+- **Serpent Géant** (80 HP) : Rapide et venimeux.
+- **Troll des Montagnes** (150 HP) : Une brute massive et résistante.
+- **Cerbère** (200 HP) : Le gardien des enfers, trois têtes et des flammes.
+- **Dragon Ancien** (300 HP) : Le plus dur
+
+---
+
+## 🎒 Système d'Objets
+- **Potion de Soin** : Restaure 80 HP (donnée une seule fois si HP < 50%).
+- **Grenade** : Inflige 150 points de dégâts massifs à la cible.
+
+---
+
+## 🛠️ Concepts POO Démontrés
+1.  **Abstraction** : Classe `GameCharacter` et `GameItem` abstraites.
+2.  **Encapsulation** : Usage rigoureux de `private` avec getters/setters.
+3.  **Héritage** : Hiérarchie complexe (`GameItem` -> `AttackItem` -> `Grenade`).
+4.  **Polymorphisme** : Surcharge de `attack()` et `use()` selon l'entité ou l'objet.
+5.  **Interfaces** : `Regenerable` et `HeavyAttack` pour les capacités uniques.
 
 ---
 
 ## 🏗️ Structure du Projet
-
-```text
-src/com/rpg/
-├── core/             # Logique centrale, Classes abstraites, Interfaces, Utilitaires
-│   ├── GameCharacter.java
-│   ├── ConsoleColors.java
-│   ├── ConsoleUtils.java    # Gère l'effet typewriter
-│   └── ...
-├── entities/         # Définition des héros et des monstres
-│   ├── Hero.java
-│   ├── Warrior.java
-│   ├── Monster.java
-│   └── ...
-└── main/             # Point d'entrée et boucle de jeu
-    └── Main.java
+``` Text
 ```
-
+.
+└── com
+    └── rpg
+        ├── core
+        │   ├── ConsoleColors.java
+        │   ├── ConsoleUtils.java
+        │   ├── GameCharacter.java
+        │   ├── GameItem.java
+        │   ├── HeavyAttack.java
+        │   └── Regenerable.java
+        ├── entities
+        │   ├── Cerberus.java
+        │   ├── Dragon.java
+        │   ├── GiantSnake.java
+        │   ├── Goblin.java
+        │   ├── Hero.java
+        │   ├── Mage.java
+        │   ├── Monster.java
+        │   ├── Troll.java
+        │   └── Warrior.java
+        ├── items
+        │   ├── AttackItem.java
+        │   ├── Grenade.java
+        │   ├── HealingItem.java
+        │   └── Potion.java
+        └── main
+            └── Main.java
+```
+```
 ---
 
-## 🚀 Comment Lancer le Jeu
-
-### Prérequis
-- Java JDK 8 ou supérieur.
-
-### Compilation et Exécution
-Utilisez le **Makefile** inclus pour une gestion simplifiée :
-
+## 🚀 Lancement
 ```bash
-# Pour compiler le projet
-make compile
-
-# Pour lancer le jeu
-make run
+make compile && make run
 ```
 
----
-
-## 📝 À propos du Projet
-> *Note : Les éléments esthétiques (couleurs, affichage progressif) et certains messages narratifs ont ete completement genere pas IA*
-
+**Auteur :** [Votre Nom]  
+**Projet :** Session de Programmation POO I
