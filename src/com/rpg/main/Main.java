@@ -2,6 +2,7 @@ package com.rpg.main;
 
 import com.rpg.entities.*;
 import com.rpg.core.*;
+import com.rpg.items.*;
 import java.util.Scanner;
 import java.util.Random;
 
