@@ -1,8 +1,8 @@
-# 🛡️ Shadow Arena
+# Shadow Arena
 
 ---
 
-## 🎮 Concept du Jeu
+## Concept du Jeu
 **Shadow Arena** est un RPG inspire de [donjons et dragons](https://fr.wikipedia.org/wiki/Donjons_et_Dragons) ou le maitre du jeu est aleatoire. 
 
 
@@ -25,7 +25,7 @@
 
 ---
 
-## 👹 Bestiaire de l'Arène
+## Bestiaire de l'Arène
 L'arène génère aléatoirement l'un des monstres suivants :
 - **Gobelin Sournois** (50 HP) : Faible mais vicieux.
 - **Serpent Géant** (80 HP) : Rapide et venimeux.
@@ -35,13 +35,13 @@ L'arène génère aléatoirement l'un des monstres suivants :
 
 ---
 
-## 🎒 Système d'Objets
+## Système d'Objets
 - **Potion de Soin** : Restaure 80 HP (donnée une seule fois si HP < 50%).
 - **Grenade** : Inflige 150 points de dégâts massifs à la cible.
 
 ---
 
-## 🛠️ Concepts POO Démontrés
+## Concepts POO Démontrés
 1.  **Abstraction** : Classe `GameCharacter` et `GameItem` abstraites.
 2.  **Encapsulation** : Usage rigoureux de `private` avec getters/setters.
 3.  **Héritage** : Hiérarchie complexe (`GameItem` -> `AttackItem` -> `Grenade`).
@@ -50,7 +50,7 @@ L'arène génère aléatoirement l'un des monstres suivants :
 
 ---
 
-## 🏗️ Structure du Projet
+## Structure du Projet
 ``` Text
 .
 └── com
@@ -82,10 +82,7 @@ L'arène génère aléatoirement l'un des monstres suivants :
 ```
 ---
 
-## 🚀 Lancement
+## Lancement
 ```bash
 make compile && make run
 ```
-
-**Auteur :** [Votre Nom]  
-**Projet :** Session de Programmation POO I
