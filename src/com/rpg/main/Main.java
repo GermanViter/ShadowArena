@@ -29,12 +29,10 @@ public class Main {
             return;
         }
 
-        Monster[] monsters = { new Goblin(), new Dragon() };
-
         ConsoleUtils.slowPrint("\n" + ConsoleColors.PURPLE_BOLD + "--- Le combat commence dans la Shadow Arena ! ---"
                 + ConsoleColors.RESET);
 
-        Monster activeMonster = monsters[rd.nextInt(monsters.length)];
+        Monster activeMonster = getRandomMonster(rd);
 
         while (pl.isAlive()) {
             ConsoleUtils.slowPrint("\n" + ConsoleColors.YELLOW_BOLD + "--- TOUR DE L'ENNEMI ---" + ConsoleColors.RESET);
@@ -74,8 +72,7 @@ public class Main {
                 if (defeatedMonsters < 3) {
                     ConsoleUtils.slowPrint(ConsoleColors.YELLOW
                             + "Un nouveau monstre apparaît pour venger son camarade !" + ConsoleColors.RESET);
-                    // On génère un NOUVEAU monstre pour le tour suivant
-                    activeMonster = (rd.nextInt(2) == 0) ? new Goblin() : new Dragon();
+                    activeMonster = getRandomMonster(rd);
                 }
             }
 
@@ -92,6 +89,24 @@ public class Main {
         }
 
         sc.close();
+    }
+
+    public static Monster getRandomMonster(Random rd) {
+        int choice = rd.nextInt(5);
+        switch (choice) {
+            case 0:
+                return new Goblin();
+            case 1:
+                return new Dragon();
+            case 2:
+                return new Troll();
+            case 3:
+                return new GiantSnake();
+            case 4:
+                return new Cerberus();
+            default:
+                return new Goblin();
+        }
     }
 
     public static String displayMenu(Scanner sc, String pl) {
