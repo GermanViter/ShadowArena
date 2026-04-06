@@ -8,7 +8,7 @@ import com.rpg.core.ConsoleUtils;
 public class Warrior extends Hero implements HeavyAttack {
 
     public Warrior(String name) {
-        super(name, 450, 450, 200, 200);
+        super(name, 450, 450, 600, 200);
     }
 
     @Override
