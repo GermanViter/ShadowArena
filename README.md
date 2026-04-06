@@ -52,7 +52,6 @@ L'arène génère aléatoirement l'un des monstres suivants :
 
 ## 🏗️ Structure du Projet
 ``` Text
-```
 .
 └── com
     └── rpg
@@ -80,7 +79,6 @@ L'arène génère aléatoirement l'un des monstres suivants :
         │   └── Potion.java
         └── main
             └── Main.java
-```
 ```
 ---
 
