@@ -26,13 +26,14 @@ public class Main {
         playerName = displayMenu(sc, playerName);
 
         Mage mage = new Mage(playerName);
-        Warrior war = new Warrior(playerName);
+        Knight knight = new Knight(playerName);
+        Berserker berserk = new Berserker(playerName);
 
         String playerChoice = sc.nextLine();
         if (playerChoice.toUpperCase().equals("Q"))
             return;
 
-        Hero pl = (playerChoice.equals("1")) ? mage : (playerChoice.equals("2")) ? war : null;
+        Hero pl = (playerChoice.equals("1")) ? mage : (playerChoice.equals("2")) ? knight : (playerChoice.equals("3")) ? berserk : null;
 
         if (pl == null) {
             ConsoleUtils.slowPrint(ConsoleColors.RED + "Choix invalide. Fin du programme." + ConsoleColors.RESET);
@@ -92,8 +93,10 @@ public class Main {
             } else if (action.equals("2")) {
                 if (pl instanceof Mage) {
                     ((Mage) pl).regenerate();
-                } else if (pl instanceof Warrior) {
-                    ((Warrior) pl).heavyAttack(activeMonster);
+                } else if (pl instanceof Knight) {
+                    ((Knight) pl).heavyAttack(activeMonster);
+                } else if (pl instanceof Berserker) {
+                    ((Berserker) pl).enableBerserkMode(activeMonster);
                 }
             } else if (action.equals("3")) {
                 pl.defend();
@@ -174,9 +177,11 @@ public class Main {
         ConsoleUtils.slowPrint(
                 "\n" + ConsoleColors.YELLOW_BOLD + "Veuillez choisir votre personnage :" + ConsoleColors.RESET);
         ConsoleUtils.slowPrint(
-                ConsoleColors.BLUE + "[1] Mage    ~~ HP: 400 | ATQ: 25 | SPE: Régénération" + ConsoleColors.RESET);
+                ConsoleColors.BLUE + "[1] Mage      ~~ HP: 400 | ATQ: 25 | SPE: Régénération" + ConsoleColors.RESET);
         ConsoleUtils.slowPrint(
-                ConsoleColors.GREEN + "[2] Warrior ~~ HP: 450 | ATQ: 20 | SPE: Attaque Lourde" + ConsoleColors.RESET);
+                ConsoleColors.GREEN + "[2] Knight    ~~ HP: 450 | ATQ: 20 | SPE: Attaque Lourde" + ConsoleColors.RESET);
+        ConsoleUtils.slowPrint(
+                ConsoleColors.RED + "[3] Berserker ~~ HP: 500 | ATQ: 40+ | SPE: Rage Berserk" + ConsoleColors.RESET);
         ConsoleUtils.slowPrint(ConsoleColors.RED + "[Q] Quitter" + ConsoleColors.RESET);
         ConsoleUtils.slowPrint(
                 ConsoleColors.CYAN + "<=============================================>" + ConsoleColors.RESET);

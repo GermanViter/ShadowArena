@@ -1,4 +1,3 @@
-
 package com.rpg.core;
 
 public interface HeavyAttack {
