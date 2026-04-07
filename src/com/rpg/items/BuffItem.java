@@ -1,6 +1,7 @@
 package com.rpg.items;
 
 import com.rpg.core.GameCharacter;
+import com.rpg.core.GameItem;
 import com.rpg.core.ConsoleUtils;
 
 public abstract class BuffItem extends GameItem {
@@ -20,7 +21,7 @@ public abstract class BuffItem extends GameItem {
 
     @Override
     public void use(GameCharacter user, GameCharacter target) {
-        ConsoleUtils.slowPrint(getMessage());
+        ConsoleUtils.slowPrint(this.getMessage());
         applyBuff(user, target);
     }
 
