@@ -20,7 +20,7 @@
 | :---    | :-- | :--- | :--- |
 | **Mage**    | 400 | 200  | **Régénération** (80 Mana) : Soigne tous les HP. |
 | **Knight** | 450 | 200  | **Attaque Lourde** (80 Mana) : Inflige +10 dégâts bonus. |
-| **Berserker** | 500 | 200 | **Rage Berserk** (100 Mana) : Double les dégâts pendant 3 tours. Dégâts bonus si bas en HP. |
+| **Berserker** | 500 | 200 | **Rage Berserk** (100 Mana) : HP augmentés et dégâts doublés pendant 3 tours. |
 
 *Note : La **Défense** consomme 60 Mana et bloque 100% des dégâts du prochain tour.*
 
@@ -47,7 +47,7 @@ L'arène génère aléatoirement l'un des monstres suivants :
 2.  **Encapsulation** : Usage rigoureux de `private` avec getters/setters.
 3.  **Héritage** : Hiérarchie complexe (`GameItem` -> `AttackItem` -> `Grenade`).
 4.  **Polymorphisme** : Surcharge de `attack()` et `use()` selon l'entité ou l'objet.
-5.  **Interfaces** : `Regenerable`, `HeavyAttack` et `WariorAbilities`.
+5.  **Interfaces** : `MageAbilities`, `KnightAbilities` et `BerserkerAbilities`.
 
 ---
 
@@ -61,9 +61,9 @@ L'arène génère aléatoirement l'un des monstres suivants :
         │   ├── ConsoleUtils.java
         │   ├── GameCharacter.java
         │   ├── GameItem.java
-        │   ├── HeavyAttack.java
-        │   ├── Regenerable.java
-        │   └── WariorAbilities.java
+        │   ├── KnightAbilities.java
+        │   ├── MageAbilities.java
+        │   └── BerserkerAbilities.java
         ├── entities
         │   ├── Berserker.java
         │   ├── Cerberus.java

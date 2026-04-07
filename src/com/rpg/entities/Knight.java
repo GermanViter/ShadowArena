@@ -1,11 +1,11 @@
 package com.rpg.entities;
 
 import com.rpg.core.GameCharacter;
-import com.rpg.core.HeavyAttack;
+import com.rpg.core.KnightAbilities;
 import com.rpg.core.ConsoleColors;
 import com.rpg.core.ConsoleUtils;
 
-public class Knight extends Hero implements HeavyAttack {
+public class Knight extends Hero implements KnightAbilities {
 
     public Knight(String name) {
         super(name, 450, 450, 600, 600);

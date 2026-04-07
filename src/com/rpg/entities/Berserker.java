@@ -1,11 +1,11 @@
 package com.rpg.entities;
 
 import com.rpg.core.GameCharacter;
-import com.rpg.core.WariorAbilities;
+import com.rpg.core.BerserkerAbilities;
 import com.rpg.core.ConsoleColors;
 import com.rpg.core.ConsoleUtils;
 
-public class Berserker extends Hero implements WariorAbilities {
+public class Berserker extends Hero implements BerserkerAbilities {
 
     private boolean isBerserk;
     private int berserkTurns;

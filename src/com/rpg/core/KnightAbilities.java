@@ -1,6 +1,5 @@
 package com.rpg.core;
 
-public interface HeavyAttack {
-
+public interface KnightAbilities {
     void heavyAttack(GameCharacter target);
 }

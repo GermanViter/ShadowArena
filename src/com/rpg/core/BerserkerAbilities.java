@@ -1,6 +1,6 @@
 package com.rpg.core;
 
-public interface WariorAbilities {
+public interface BerserkerAbilities {
     void enableBerserkMode(GameCharacter target);
     void disableBerserkMode(GameCharacter target, int originalHP);
 }
