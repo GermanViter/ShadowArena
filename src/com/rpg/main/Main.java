@@ -21,6 +21,7 @@ public class Main {
         int defeatedMonsters = 0;
         ArrayList<GameItem> inventory = new ArrayList<>();
         boolean lowHealthPotionGiven = false;
+        boolean lowManaPotionGiven = false;
 
         String playerName = "";
         playerName = displayMenu(sc, playerName);
@@ -33,7 +34,8 @@ public class Main {
         if (playerChoice.toUpperCase().equals("Q"))
             return;
 
-        Hero pl = (playerChoice.equals("1")) ? mage : (playerChoice.equals("2")) ? knight : (playerChoice.equals("3")) ? berserk : null;
+        Hero pl = (playerChoice.equals("1")) ? mage
+                : (playerChoice.equals("2")) ? knight : (playerChoice.equals("3")) ? berserk : null;
 
         if (pl == null) {
             ConsoleUtils.slowPrint(ConsoleColors.RED + "Choix invalide. Fin du programme." + ConsoleColors.RESET);
@@ -59,6 +61,16 @@ public class Main {
                         "\n" + ConsoleColors.YELLOW + "--- VOS FORCES DÉCLINENT ! ---" + ConsoleColors.RESET);
                 ConsoleUtils.slowPrint(ConsoleColors.YELLOW
                         + "Vous trouvez une potion de soin au sol ! Utilisez-la sagement." + ConsoleColors.RESET);
+            }
+
+            if (!lowManaPotionGiven && pl.getMana() < (pl.getMaxMana() / 2)) {
+                inventory.add(new ManaPotion());
+                lowManaPotionGiven = true;
+                ConsoleUtils.slowPrint(
+                        "\n" + ConsoleColors.YELLOW + "--- VOTRE MANA DIMINUE ! ---" + ConsoleColors.RESET);
+                ConsoleUtils.slowPrint(ConsoleColors.YELLOW
+                        + "Vous trouvez une potion de mana au sol ! Utilisez-la pour vos capacités spéciales."
+                        + ConsoleColors.RESET);
             }
 
             ConsoleUtils.slowPrint("\n" + ConsoleColors.YELLOW_BOLD + "--- TOUR DE L'ENNEMI ---" + ConsoleColors.RESET);
