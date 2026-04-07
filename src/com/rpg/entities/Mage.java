@@ -1,14 +1,14 @@
 package com.rpg.entities;
 
 import com.rpg.core.GameCharacter;
-import com.rpg.core.Regenerable;
+import com.rpg.core.MageAbilities;
 import com.rpg.core.ConsoleColors;
 import com.rpg.core.ConsoleUtils;
 
-public class Mage extends Hero implements Regenerable {
+public class Mage extends Hero implements MageAbilities {
 
     public Mage(String name) {
-        super(name, 400, 400, 600, 200);
+        super(name, 400, 400, 600, 600);
     }
 
     @Override

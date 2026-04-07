@@ -1,5 +1,5 @@
 package com.rpg.core;
 
-public interface Regenerable {
+public interface MageAbilities {
     void regenerate();
 }
