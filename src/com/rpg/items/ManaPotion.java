@@ -6,13 +6,17 @@ import com.rpg.core.ConsoleUtils;
 public class ManaPotion extends HealingItem {
 
     public ManaPotion() {
-        super("Mana Potion", "Restores 50 mana points.", 50,
-                "You drink the mana potion and feel your magical energy surge!");
+        super("potion de mana", "Une potion qui restaure une partie de votre mana.", 50,
+                "Vous buvez la potion de mana et sentez votre énergie magique augmenter !");
     }
 
     @Override
-    public void use(GameCharacter character, GameCharacter target) {
+    public void use(GameCharacter user, GameCharacter target) {
+        int newMana = user.getMana() + getHealingAmount();
+        if (newMana > user.getMaxMana()) {
+            newMana = user.getMaxMana();
+        }
+        user.setMana(newMana);
         ConsoleUtils.slowPrint(getMessage());
-        character.setMana(character.getMana() + getHealingAmount());
     }
 }
