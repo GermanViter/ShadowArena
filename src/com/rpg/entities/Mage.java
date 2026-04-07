@@ -15,7 +15,7 @@ public class Mage extends Hero implements MageAbilities {
     public void attack(GameCharacter target) {
         ConsoleUtils.slowPrint(ConsoleColors.CYAN_BOLD + getName() + ConsoleColors.RESET
                 + " lance une boule de feu sur " + ConsoleColors.PURPLE + target.getName() + ConsoleColors.RESET + "!");
-        target.takeDamage(25);
+        target.takeDamage(40);
     }
 
     @Override
@@ -23,7 +23,9 @@ public class Mage extends Hero implements MageAbilities {
         if (this.getCurrentHP() < this.getMaxHP() && this.getMana() >= 80) {
             ConsoleUtils.slowPrint(
                     ConsoleColors.GREEN_BOLD + getName() + " utilise la magie pour se soigner!" + ConsoleColors.RESET);
-            this.setCurrentHP(this.getMaxHP());
+            int healedHP = this.getCurrentHP() + (this.getMaxHP() / 2);
+            if (healedHP > this.getMaxHP()) healedHP = this.getMaxHP();
+            this.setCurrentHP(healedHP);
             this.setMana(this.getMana() - 80);
         } else if (this.getMana() < 80) {
             ConsoleUtils.slowPrint(

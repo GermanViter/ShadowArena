@@ -21,9 +21,9 @@ public class Berserker extends Hero implements BerserkerAbilities {
         ConsoleUtils.slowPrint(ConsoleColors.RED_BOLD + getName() + ConsoleColors.RESET
                 + " charge furieusement sur " + ConsoleColors.PURPLE + target.getName() + ConsoleColors.RESET + "!");
 
-        int baseDamage = 40;
+        int baseDamage = 50;
         int bonusDamage = (getMaxHP() - getCurrentHP()) / 10; 
-        
+
         // On s'assure que le bonus ne soit pas négatif si on a plus de HP que le Max (pendant le mode Berserk)
         if (bonusDamage < 0) bonusDamage = 0;
 

@@ -73,15 +73,6 @@ public class Main {
                         + ConsoleColors.RESET);
             }
 
-            ConsoleUtils.slowPrint("\n" + ConsoleColors.YELLOW_BOLD + "--- TOUR DE L'ENNEMI ---" + ConsoleColors.RESET);
-            activeMonster.attack(pl);
-
-            if (!pl.isAlive()) {
-                ConsoleUtils.slowPrint("\n" + ConsoleColors.RED_BOLD + "DOMMAGE ! " + pl.getName()
-                        + " a succombé dans l'arène..." + ConsoleColors.RESET);
-                break;
-            }
-
             ConsoleUtils.slowPrint("\n" + ConsoleColors.CYAN_BOLD + "--- VOTRE TOUR (HP: " + pl.getCurrentHP() + "/"
                     + pl.getMaxHP() + ") (MANA: " + pl.getMana() + "/" + pl.getMaxMana() + ") ---"
                     + ConsoleColors.RESET);
@@ -141,6 +132,15 @@ public class Main {
                     ConsoleUtils.slowPrint(ConsoleColors.YELLOW
                             + "Un nouveau monstre apparaît pour venger son camarade !" + ConsoleColors.RESET);
                     activeMonster = getRandomMonster(rd);
+                }
+            } else {
+                ConsoleUtils.slowPrint("\n" + ConsoleColors.YELLOW_BOLD + "--- TOUR DE L'ENNEMI ---" + ConsoleColors.RESET);
+                activeMonster.attack(pl);
+
+                if (!pl.isAlive()) {
+                    ConsoleUtils.slowPrint("\n" + ConsoleColors.RED_BOLD + "DOMMAGE ! " + pl.getName()
+                            + " a succombé dans l'arène..." + ConsoleColors.RESET);
+                    break;
                 }
             }
 

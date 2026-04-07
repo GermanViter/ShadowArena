@@ -16,7 +16,7 @@ public class Knight extends Hero implements KnightAbilities {
         ConsoleUtils
                 .slowPrint(ConsoleColors.BLUE_BOLD + getName() + ConsoleColors.RESET + " abat une épée puissante sur "
                         + ConsoleColors.PURPLE + target.getName() + ConsoleColors.RESET + "!");
-        target.takeDamage(20);
+        target.takeDamage(35);
 
     }
 
@@ -26,7 +26,7 @@ public class Knight extends Hero implements KnightAbilities {
             ConsoleUtils.slowPrint(
                     ConsoleColors.BLUE_BOLD + getName() + ConsoleColors.RED_BOLD + " FAIT UNE ATTAQUE LOURDE SUR "
                             + ConsoleColors.PURPLE + target.getName() + ConsoleColors.RESET + "!");
-            target.takeDamage(30);
+            target.takeDamage(85);
             this.setMana(this.getMana() - 80);
         } else {
             ConsoleUtils.slowPrint(
