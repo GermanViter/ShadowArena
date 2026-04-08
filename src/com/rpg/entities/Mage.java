@@ -8,14 +8,19 @@ import com.rpg.core.ConsoleUtils;
 public class Mage extends Hero implements MageAbilities {
 
     public Mage(String name) {
-        super(name, 400, 400, 600, 600);
+        super(name, 400, 400, 600, 600, 40);
     }
 
     @Override
     public void attack(GameCharacter target) {
         ConsoleUtils.slowPrint(ConsoleColors.CYAN_BOLD + getName() + ConsoleColors.RESET
                 + " lance une boule de feu sur " + ConsoleColors.PURPLE + target.getName() + ConsoleColors.RESET + "!");
-        target.takeDamage(40);
+        int damage = this.getDamage();
+        if (isAmuletteActive()) {
+            damage += 40;
+            ConsoleUtils.slowPrint(ConsoleColors.YELLOW + "L'amulette brille et renforce l'attaque ! (+40 dégâts)" + ConsoleColors.RESET);
+        }
+        target.takeDamage(damage);
     }
 
     @Override
@@ -24,7 +29,8 @@ public class Mage extends Hero implements MageAbilities {
             ConsoleUtils.slowPrint(
                     ConsoleColors.GREEN_BOLD + getName() + " utilise la magie pour se soigner!" + ConsoleColors.RESET);
             int healedHP = this.getCurrentHP() + (this.getMaxHP() / 2);
-            if (healedHP > this.getMaxHP()) healedHP = this.getMaxHP();
+            if (healedHP > this.getMaxHP())
+                healedHP = this.getMaxHP();
             this.setCurrentHP(healedHP);
             this.setMana(this.getMana() - 80);
         } else if (this.getMana() < 80) {

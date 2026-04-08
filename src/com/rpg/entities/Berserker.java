@@ -11,7 +11,7 @@ public class Berserker extends Hero implements BerserkerAbilities {
     private int berserkTurns;
 
     public Berserker(String name) {
-        super(name, 500, 500, 200, 200);
+        super(name, 500, 500, 200, 200, 50);
         this.isBerserk = false;
         this.berserkTurns = 0;
     }
@@ -21,25 +21,34 @@ public class Berserker extends Hero implements BerserkerAbilities {
         ConsoleUtils.slowPrint(ConsoleColors.RED_BOLD + getName() + ConsoleColors.RESET
                 + " charge furieusement sur " + ConsoleColors.PURPLE + target.getName() + ConsoleColors.RESET + "!");
 
-        int baseDamage = 50;
-        int bonusDamage = (getMaxHP() - getCurrentHP()) / 10; 
+        int baseDamage = this.getDamage();
+        int bonusDamage = (getMaxHP() - getCurrentHP()) / 10;
 
-        // On s'assure que le bonus ne soit pas négatif si on a plus de HP que le Max (pendant le mode Berserk)
-        if (bonusDamage < 0) bonusDamage = 0;
+        if (bonusDamage < 0)
+            bonusDamage = 0;
+
+        int amuletteBonus = isAmuletteActive() ? 40 : 0;
+        if (amuletteBonus > 0) {
+            ConsoleUtils.slowPrint(ConsoleColors.YELLOW + "L'amulette brille et renforce la rage du Berserker ! (+40 dégâts)" + ConsoleColors.RESET);
+        }
+
+        int totalDamage = baseDamage + bonusDamage + amuletteBonus;
 
         if (isBerserk) {
-            ConsoleUtils.slowPrint(ConsoleColors.RED_BOLD + "MODE BERSERK ACTIF ! Dégâts augmentés !" + ConsoleColors.RESET);
-            target.takeDamage((baseDamage + bonusDamage) * 2);
+            ConsoleUtils.slowPrint(
+                    ConsoleColors.RED_BOLD + "MODE BERSERK ACTIF ! Dégâts augmentés !" + ConsoleColors.RESET);
+            target.takeDamage(totalDamage * 2);
             decrementBerserk();
         } else {
-            target.takeDamage(baseDamage + bonusDamage);
+            target.takeDamage(totalDamage);
         }
     }
 
     @Override
     public void enableBerserkMode(GameCharacter target) {
         if (isBerserk) {
-            ConsoleUtils.slowPrint(ConsoleColors.YELLOW + getName() + " est déjà en mode Berserk !" + ConsoleColors.RESET);
+            ConsoleUtils
+                    .slowPrint(ConsoleColors.YELLOW + getName() + " est déjà en mode Berserk !" + ConsoleColors.RESET);
             return;
         }
         if (getMana() < 100) {
@@ -48,16 +57,16 @@ public class Berserker extends Hero implements BerserkerAbilities {
                             + ConsoleColors.RESET);
             return;
         }
-        
+
         this.isBerserk = true;
         this.berserkTurns = 3;
         setMana(getMana() - 100);
-        
-        // Bonus de HP : On ajoute 500 HP temporaires
-        setCurrentHP(getCurrentHP() + 500);
-        
+
+        setCurrentHP(getCurrentHP() * 2);
+
         ConsoleUtils.slowPrint(
-                ConsoleColors.RED_BOLD + getName() + " entre en RAGE BERSERK ! HP augmentés et dégâts doublés pour 3 tours !"
+                ConsoleColors.RED_BOLD + getName()
+                        + " entre en RAGE BERSERK ! HP augmentés et dégâts doublés pour 3 tours !"
                         + ConsoleColors.RESET);
     }
 
@@ -67,7 +76,8 @@ public class Berserker extends Hero implements BerserkerAbilities {
             if (berserkTurns <= 0) {
                 disableBerserkMode(null, 0);
             } else {
-                ConsoleUtils.slowPrint(ConsoleColors.YELLOW + "(Mode Berserk : encore " + berserkTurns + " tours)" + ConsoleColors.RESET);
+                ConsoleUtils.slowPrint(ConsoleColors.YELLOW + "(Mode Berserk : encore " + berserkTurns + " tours)"
+                        + ConsoleColors.RESET);
             }
         }
     }
@@ -76,12 +86,12 @@ public class Berserker extends Hero implements BerserkerAbilities {
     public void disableBerserkMode(GameCharacter target, int originalHP) {
         this.isBerserk = false;
         this.berserkTurns = 0;
-        
+
         // Si les HP actuels sont toujours au-dessus du max, on les ramène au max
         if (getCurrentHP() > getMaxHP()) {
             setCurrentHP(getMaxHP());
         }
-        
+
         ConsoleUtils.slowPrint(
                 ConsoleColors.YELLOW + getName() + " sort du mode Berserk. Ses HP reviennent à la normale."
                         + ConsoleColors.RESET);
