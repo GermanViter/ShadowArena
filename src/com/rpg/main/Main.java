@@ -46,16 +46,22 @@ public class Main {
             }
         }
 
-        String playerChoice = sc.nextLine();
-        if (playerChoice.toUpperCase().equals("Q"))
-            return;
-
-        Hero pl = (playerChoice.equals("1")) ? mage
-                : (playerChoice.equals("2")) ? knight : (playerChoice.equals("3")) ? berserk : null;
-
         if (pl == null) {
-            ConsoleUtils.slowPrint(ConsoleColors.RED + "Choix invalide. Fin du programme." + ConsoleColors.RESET);
-            return;
+            Mage mage = new Mage(playerName);
+            Knight knight = new Knight(playerName);
+            Berserker berserk = new Berserker(playerName);
+
+            String playerChoice = sc.nextLine();
+            if (playerChoice.toUpperCase().equals("Q"))
+                return;
+
+            pl = (playerChoice.equals("1")) ? mage
+                    : (playerChoice.equals("2")) ? knight : (playerChoice.equals("3")) ? berserk : null;
+
+            if (pl == null) {
+                ConsoleUtils.slowPrint(ConsoleColors.RED + "Choix invalide. Fin du programme." + ConsoleColors.RESET);
+                return;
+            }
         }
 
         ConsoleUtils.slowPrint("\n" + ConsoleColors.PURPLE_BOLD + "--- Le combat commence dans la Shadow Arena ! ---"
@@ -188,6 +194,10 @@ public class Main {
                             + "Un nouveau monstre apparaît pour venger son camarade !" + ConsoleColors.RESET);
                     activeMonster = getRandomMonster(rd);
                 }
+
+                // Auto-save after defeating a monster
+                SaveManager.savePlayer(new PlayerSave(pl, defeatedMonsters, inventory,
+                    pl.isAmuletteActive(), lowHealthPotionGiven, lowManaPotionGiven, amuletteGiven), playerName);
             } else {
                 ConsoleUtils
                         .slowPrint("\n" + ConsoleColors.YELLOW_BOLD + "--- TOUR DE L'ENNEMI ---" + ConsoleColors.RESET);

@@ -11,6 +11,11 @@ public class SaveManager {
         gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .create();
+
+        File directory = new File("users_info");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
     }
 
     public static boolean playerExists(String username) {
