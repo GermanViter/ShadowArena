@@ -22,6 +22,7 @@ public class Main {
         ArrayList<GameItem> inventory = new ArrayList<>();
         boolean lowHealthPotionGiven = false;
         boolean lowManaPotionGiven = false;
+        boolean amuletteGiven = false;
 
         String playerName = "";
         playerName = displayMenu(sc, playerName);
@@ -54,6 +55,27 @@ public class Main {
          */
 
         while (pl.isAlive()) {
+            // Chance de trouver l'Amulette (1/20 chaque tour si pas déjà possédée ou active)
+            if (!amuletteGiven && rd.nextInt(20) == 0) {
+                amuletteGiven = true;
+                Amulette amulette = new Amulette();
+                inventory.add(amulette);
+                ConsoleUtils.slowPrint(
+                        "\n" + ConsoleColors.YELLOW + "--- OBJET LÉGENDAIRE TROUVÉ ! ---" + ConsoleColors.RESET);
+                ConsoleUtils.slowPrint(ConsoleColors.YELLOW + "Vous trouvez une " + amulette.getName() + " au sol ! "
+                        + amulette.getDescription() + ConsoleColors.RESET);
+            }
+
+            // L'amulette ronge la vie chaque tour SI elle est activée
+            if (pl.isAmuletteActive()) {
+                pl.setCurrentHP(pl.getCurrentHP() - 10);
+                ConsoleUtils.slowPrint(ConsoleColors.RED + "L'amulette brille d'une lueur sombre et vous ronge la vie... (-10 HP)" + ConsoleColors.RESET);
+                if (!pl.isAlive()) {
+                    ConsoleUtils.slowPrint("\n" + ConsoleColors.RED_BOLD + pl.getName() + " a succombé à la malédiction de l'amulette..." + ConsoleColors.RESET);
+                    break;
+                }
+            }
+
             if (!lowHealthPotionGiven && pl.getCurrentHP() < (pl.getMaxHP() / 2)) {
                 inventory.add(new Potion());
                 lowHealthPotionGiven = true;
@@ -134,7 +156,8 @@ public class Main {
                     activeMonster = getRandomMonster(rd);
                 }
             } else {
-                ConsoleUtils.slowPrint("\n" + ConsoleColors.YELLOW_BOLD + "--- TOUR DE L'ENNEMI ---" + ConsoleColors.RESET);
+                ConsoleUtils
+                        .slowPrint("\n" + ConsoleColors.YELLOW_BOLD + "--- TOUR DE L'ENNEMI ---" + ConsoleColors.RESET);
                 activeMonster.attack(pl);
 
                 if (!pl.isAlive()) {
