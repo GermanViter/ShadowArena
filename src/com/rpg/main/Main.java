@@ -29,9 +29,22 @@ public class Main {
         String playerName = "";
         playerName = displayMenu(sc, playerName);
 
-        Mage mage = new Mage(playerName);
-        Knight knight = new Knight(playerName);
-        Berserker berserk = new Berserker(playerName);
+        Hero pl = null;
+        if (SaveManager.playerExists(playerName)) {
+            ConsoleUtils.slowPrint(ConsoleColors.YELLOW + "\nUne sauvegarde existe pour " + playerName + " !" + ConsoleColors.RESET);
+            ConsoleUtils.slowPrint("Voulez-vous [1] Charger la partie ou [2] Commencer une nouvelle aventure ? ");
+            String loadChoice = sc.nextLine();
+            if (loadChoice.equals("1")) {
+                PlayerSave savedData = SaveManager.loadPlayer(playerName);
+                pl = savedData.getHero();
+                defeatedMonsters = savedData.getDefeatedMonsters();
+                inventory = savedData.getInventory();
+                lowHealthPotionGiven = savedData.isLowHealthPotionGiven();
+                lowManaPotionGiven = savedData.isLowManaPotionGiven();
+                amuletteGiven = savedData.isAmuletteGiven();
+                ConsoleUtils.slowPrint(ConsoleColors.GREEN + "Sauvegarde chargée avec succès !" + ConsoleColors.RESET);
+            }
+        }
 
         String playerChoice = sc.nextLine();
         if (playerChoice.toUpperCase().equals("Q"))
