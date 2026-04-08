@@ -55,7 +55,6 @@ public class Main {
          */
 
         while (pl.isAlive()) {
-            // Chance de trouver l'Amulette (1/20 chaque tour si pas déjà possédée ou active)
             if (!amuletteGiven && rd.nextInt(20) == 0) {
                 amuletteGiven = true;
                 Amulette amulette = new Amulette();
@@ -66,12 +65,14 @@ public class Main {
                         + amulette.getDescription() + ConsoleColors.RESET);
             }
 
-            // L'amulette ronge la vie chaque tour SI elle est activée
             if (pl.isAmuletteActive()) {
                 pl.setCurrentHP(pl.getCurrentHP() - 10);
-                ConsoleUtils.slowPrint(ConsoleColors.RED + "L'amulette brille d'une lueur sombre et vous ronge la vie... (-10 HP)" + ConsoleColors.RESET);
+                ConsoleUtils.slowPrint(
+                        ConsoleColors.RED + "L'amulette brille d'une lueur sombre et vous ronge la vie... (-10 HP)"
+                                + ConsoleColors.RESET);
                 if (!pl.isAlive()) {
-                    ConsoleUtils.slowPrint("\n" + ConsoleColors.RED_BOLD + pl.getName() + " a succombé à la malédiction de l'amulette..." + ConsoleColors.RESET);
+                    ConsoleUtils.slowPrint("\n" + ConsoleColors.RED_BOLD + pl.getName()
+                            + " a succombé à la malédiction de l'amulette..." + ConsoleColors.RESET);
                     break;
                 }
             }
