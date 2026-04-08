@@ -10,6 +10,11 @@
 
 ---
 
+## Pour commencer, mes sources:
+- Documentation pour l'utilisation de gson : [https://google.github.io/gson/UserGuide.html](https://google.github.io/gson/UserGuide.html)
+- Documentation pour les couleurs ANSI : [https://stackoverflow.com/questions/35673302/java-typewriter-effect](https://stackoverflow.com/questions/35673302/java-typewriter-effect)
+
+
 ## Concept du Jeu
 **Shadow Arena** est un RPG inspire de [donjons et dragons](https://fr.wikipedia.org/wiki/Donjons_et_Dragons) ou le maitre du jeu est aleatoire. 
 
