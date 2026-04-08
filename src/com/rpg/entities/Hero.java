@@ -18,6 +18,7 @@ public abstract class Hero extends GameCharacter {
     }
 
     public void setDamage(int damage) {
+
         this.damage = damage;
     }
 
@@ -32,6 +33,16 @@ public abstract class Hero extends GameCharacter {
         setCurrentHP(getMaxHP());
         setMaxMana(getMaxMana() + 10);
         setMana(getMaxMana());
+        ConsoleUtils.slowPrint(ConsoleColors.GREEN_BOLD + "\n✨ FÉLICITATIONS ! Vous avez atteint le niveau " + level + " ! ✨" + ConsoleColors.RESET);
+        ConsoleUtils.slowPrint(ConsoleColors.WHITE + "Vos statistiques ont augmenté !" + ConsoleColors.RESET);
+    }
+
+    public void gainExperience(int exp) {
+        experience += exp;
+        while (experience >= 150) {
+            experience -= 150;
+            levelUp();
+        }
     }
 
     public void setHp(int hp) {

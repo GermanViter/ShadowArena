@@ -180,10 +180,13 @@ public class Main {
             }
 
             if (!activeMonster.isAlive()) {
+                pl.gainExperience(50);
                 ConsoleUtils.slowPrint("\n" + ConsoleColors.GREEN_BOLD + "FÉLICITATIONS ! Le " + activeMonster.getName()
                         + " a été vaincu !" + ConsoleColors.RESET);
                 defeatedMonsters++;
 
+                ConsoleUtils
+                        .slowPrint(ConsoleColors.GREEN + "Vous gagnez 50 points d'expérience !" + ConsoleColors.RESET);
                 Grenade loot = new Grenade();
                 inventory.add(loot);
                 ConsoleUtils.slowPrint(ConsoleColors.YELLOW + "Vous avez ramassé une " + loot.getName()
