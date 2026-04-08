@@ -21,6 +21,8 @@ public class Main {
         int defeatedMonsters = 0;
         ArrayList<GameItem> inventory = new ArrayList<>();
         boolean lowHealthPotionGiven = false;
+        boolean lowManaPotionGiven = false;
+        boolean amuletteGiven = false;
 
         String playerName = "";
         playerName = displayMenu(sc, playerName);
@@ -33,7 +35,8 @@ public class Main {
         if (playerChoice.toUpperCase().equals("Q"))
             return;
 
-        Hero pl = (playerChoice.equals("1")) ? mage : (playerChoice.equals("2")) ? knight : (playerChoice.equals("3")) ? berserk : null;
+        Hero pl = (playerChoice.equals("1")) ? mage
+                : (playerChoice.equals("2")) ? knight : (playerChoice.equals("3")) ? berserk : null;
 
         if (pl == null) {
             ConsoleUtils.slowPrint(ConsoleColors.RED + "Choix invalide. Fin du programme." + ConsoleColors.RESET);
@@ -52,6 +55,28 @@ public class Main {
          */
 
         while (pl.isAlive()) {
+            if (!amuletteGiven && rd.nextInt(20) == 0) {
+                amuletteGiven = true;
+                Amulette amulette = new Amulette();
+                inventory.add(amulette);
+                ConsoleUtils.slowPrint(
+                        "\n" + ConsoleColors.YELLOW + "--- OBJET LÉGENDAIRE TROUVÉ ! ---" + ConsoleColors.RESET);
+                ConsoleUtils.slowPrint(ConsoleColors.YELLOW + "Vous trouvez une " + amulette.getName() + " au sol ! "
+                        + amulette.getDescription() + ConsoleColors.RESET);
+            }
+
+            if (pl.isAmuletteActive()) {
+                pl.setCurrentHP(pl.getCurrentHP() - 10);
+                ConsoleUtils.slowPrint(
+                        ConsoleColors.RED + "L'amulette brille d'une lueur sombre et vous ronge la vie... (-10 HP)"
+                                + ConsoleColors.RESET);
+                if (!pl.isAlive()) {
+                    ConsoleUtils.slowPrint("\n" + ConsoleColors.RED_BOLD + pl.getName()
+                            + " a succombé à la malédiction de l'amulette..." + ConsoleColors.RESET);
+                    break;
+                }
+            }
+
             if (!lowHealthPotionGiven && pl.getCurrentHP() < (pl.getMaxHP() / 2)) {
                 inventory.add(new Potion());
                 lowHealthPotionGiven = true;
@@ -61,13 +86,14 @@ public class Main {
                         + "Vous trouvez une potion de soin au sol ! Utilisez-la sagement." + ConsoleColors.RESET);
             }
 
-            ConsoleUtils.slowPrint("\n" + ConsoleColors.YELLOW_BOLD + "--- TOUR DE L'ENNEMI ---" + ConsoleColors.RESET);
-            activeMonster.attack(pl);
-
-            if (!pl.isAlive()) {
-                ConsoleUtils.slowPrint("\n" + ConsoleColors.RED_BOLD + "DOMMAGE ! " + pl.getName()
-                        + " a succombé dans l'arène..." + ConsoleColors.RESET);
-                break;
+            if (!lowManaPotionGiven && pl.getMana() < (pl.getMaxMana() / 2)) {
+                inventory.add(new ManaPotion());
+                lowManaPotionGiven = true;
+                ConsoleUtils.slowPrint(
+                        "\n" + ConsoleColors.YELLOW + "--- VOTRE MANA DIMINUE ! ---" + ConsoleColors.RESET);
+                ConsoleUtils.slowPrint(ConsoleColors.YELLOW
+                        + "Vous trouvez une potion de mana au sol ! Utilisez-la pour vos capacités spéciales."
+                        + ConsoleColors.RESET);
             }
 
             ConsoleUtils.slowPrint("\n" + ConsoleColors.CYAN_BOLD + "--- VOTRE TOUR (HP: " + pl.getCurrentHP() + "/"
@@ -129,6 +155,16 @@ public class Main {
                     ConsoleUtils.slowPrint(ConsoleColors.YELLOW
                             + "Un nouveau monstre apparaît pour venger son camarade !" + ConsoleColors.RESET);
                     activeMonster = getRandomMonster(rd);
+                }
+            } else {
+                ConsoleUtils
+                        .slowPrint("\n" + ConsoleColors.YELLOW_BOLD + "--- TOUR DE L'ENNEMI ---" + ConsoleColors.RESET);
+                activeMonster.attack(pl);
+
+                if (!pl.isAlive()) {
+                    ConsoleUtils.slowPrint("\n" + ConsoleColors.RED_BOLD + "DOMMAGE ! " + pl.getName()
+                            + " a succombé dans l'arène..." + ConsoleColors.RESET);
+                    break;
                 }
             }
 

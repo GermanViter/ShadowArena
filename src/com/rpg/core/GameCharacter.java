@@ -8,6 +8,7 @@ public abstract class GameCharacter {
     private boolean isDefending;
     private int mana;
     private final int MAX_MANA;
+    private boolean isAmuletteActive;
 
     public GameCharacter(String name, int currentHP, int maxHP, int mana, int maxMana) {
         this.name = name;
@@ -16,9 +17,18 @@ public abstract class GameCharacter {
         this.isDefending = false;
         this.mana = mana;
         this.MAX_MANA = maxMana;
+        this.isAmuletteActive = false;
     }
 
     public abstract void attack(GameCharacter target);
+
+    public boolean isAmuletteActive() {
+        return isAmuletteActive;
+    }
+
+    public void setAmuletteActive(boolean amuletteActive) {
+        isAmuletteActive = amuletteActive;
+    }
 
     public void takeDamage(int amount) {
         if (this.isDefending) {
