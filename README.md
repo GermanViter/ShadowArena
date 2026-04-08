@@ -13,6 +13,10 @@
 ## Pour commencer, mes sources:
 - Documentation pour l'utilisation de gson : [https://google.github.io/gson/UserGuide.html](https://google.github.io/gson/UserGuide.html)
 - Documentation pour les couleurs ANSI : [https://stackoverflow.com/questions/35673302/java-typewriter-effect](https://stackoverflow.com/questions/35673302/java-typewriter-effect)
+- Documentation pour le `instanceof` : [https://www.w3schools.com/java/ref_keyword_instanceof.asp](https://www.w3schools.com/java/ref_keyword_instanceof.asp)
+- Documentation pour le Makefile :
+  - [https://www.gnu.org/software/make/manual/make.html#Simple-Makefile](https://www.gnu.org/software/make/manual/make.html#Simple-Makefile)
+  - [https://stackoverflow.com/questions/10024279/how-to-use-shell-commands-in-makefile](https://stackoverflow.com/questions/10024279/how-to-use-shell-commands-in-makefile)
 
 
 ## Concept du Jeu
