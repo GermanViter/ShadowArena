@@ -1,6 +1,8 @@
 package com.rpg.entities;
 
 import com.rpg.core.GameCharacter;
+import com.rpg.core.ConsoleUtils;
+import com.rpg.core.ConsoleColors;
 
 public abstract class Hero extends GameCharacter {
 
