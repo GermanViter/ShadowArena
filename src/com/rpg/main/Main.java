@@ -31,7 +31,8 @@ public class Main {
 
         Hero pl = null;
         if (SaveManager.playerExists(playerName)) {
-            ConsoleUtils.slowPrint(ConsoleColors.YELLOW + "\nUne sauvegarde existe pour " + playerName + " !" + ConsoleColors.RESET);
+            ConsoleUtils.slowPrint(
+                    ConsoleColors.YELLOW + "\nUne sauvegarde existe pour " + playerName + " !" + ConsoleColors.RESET);
             ConsoleUtils.slowPrint("Voulez-vous [1] Charger la partie ou [2] Commencer une nouvelle aventure ? ");
             String loadChoice = sc.nextLine();
             if (loadChoice.equals("1")) {
@@ -187,6 +188,7 @@ public class Main {
 
                 ConsoleUtils
                         .slowPrint(ConsoleColors.GREEN + "Vous gagnez 50 points d'expérience !" + ConsoleColors.RESET);
+
                 Grenade loot = new Grenade();
                 inventory.add(loot);
                 ConsoleUtils.slowPrint(ConsoleColors.YELLOW + "Vous avez ramassé une " + loot.getName()
@@ -198,7 +200,6 @@ public class Main {
                     activeMonster = getRandomMonster(rd);
                 }
 
-                // Auto-save after defeating a monster
                 SaveManager.savePlayer(new PlayerSave(pl, defeatedMonsters, inventory,
                     pl.isAmuletteActive(), lowHealthPotionGiven, lowManaPotionGiven, amuletteGiven), playerName);
             } else {
