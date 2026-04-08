@@ -4,10 +4,10 @@ public abstract class GameCharacter {
 
     private String name;
     private int currentHP;
-    private final int MAX_HP;
+    private int MAX_HP;
     private boolean isDefending;
     private int mana;
-    private final int MAX_MANA;
+    private int MAX_MANA;
     private boolean isAmuletteActive;
 
     public GameCharacter(String name, int currentHP, int maxHP, int mana, int maxMana) {
@@ -78,6 +78,10 @@ public abstract class GameCharacter {
         return MAX_HP;
     }
 
+    public void setMaxHp(int maxHp) {
+        this.MAX_HP = maxHp;
+    }
+
     public boolean isAlive() {
         return this.currentHP > 0;
     }
@@ -92,5 +96,9 @@ public abstract class GameCharacter {
 
     public int getMaxMana() {
         return MAX_MANA;
+    }
+
+    public void setMaxMana(int maxMana) {
+        this.MAX_MANA = maxMana;
     }
 }

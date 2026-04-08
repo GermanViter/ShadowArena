@@ -29,20 +29,40 @@ public class Main {
         String playerName = "";
         playerName = displayMenu(sc, playerName);
 
-        Mage mage = new Mage(playerName);
-        Knight knight = new Knight(playerName);
-        Berserker berserk = new Berserker(playerName);
-
-        String playerChoice = sc.nextLine();
-        if (playerChoice.toUpperCase().equals("Q"))
-            return;
-
-        Hero pl = (playerChoice.equals("1")) ? mage
-                : (playerChoice.equals("2")) ? knight : (playerChoice.equals("3")) ? berserk : null;
+        Hero pl = null;
+        if (SaveManager.playerExists(playerName)) {
+            ConsoleUtils.slowPrint(
+                    ConsoleColors.YELLOW + "\nUne sauvegarde existe pour " + playerName + " !" + ConsoleColors.RESET);
+            ConsoleUtils.slowPrint("Voulez-vous [1] Charger la partie ou [2] Commencer une nouvelle aventure ? ");
+            String loadChoice = sc.nextLine();
+            if (loadChoice.equals("1")) {
+                PlayerSave savedData = SaveManager.loadPlayer(playerName);
+                pl = savedData.getHero();
+                defeatedMonsters = savedData.getDefeatedMonsters();
+                inventory = savedData.getInventory();
+                lowHealthPotionGiven = savedData.isLowHealthPotionGiven();
+                lowManaPotionGiven = savedData.isLowManaPotionGiven();
+                amuletteGiven = savedData.isAmuletteGiven();
+                ConsoleUtils.slowPrint(ConsoleColors.GREEN + "Sauvegarde chargée avec succès !" + ConsoleColors.RESET);
+            }
+        }
 
         if (pl == null) {
-            ConsoleUtils.slowPrint(ConsoleColors.RED + "Choix invalide. Fin du programme." + ConsoleColors.RESET);
-            return;
+            Mage mage = new Mage(playerName);
+            Knight knight = new Knight(playerName);
+            Berserker berserk = new Berserker(playerName);
+
+            String playerChoice = sc.nextLine();
+            if (playerChoice.toUpperCase().equals("Q"))
+                return;
+
+            pl = (playerChoice.equals("1")) ? mage
+                    : (playerChoice.equals("2")) ? knight : (playerChoice.equals("3")) ? berserk : null;
+
+            if (pl == null) {
+                ConsoleUtils.slowPrint(ConsoleColors.RED + "Choix invalide. Fin du programme." + ConsoleColors.RESET);
+                return;
+            }
         }
 
         ConsoleUtils.slowPrint("\n" + ConsoleColors.PURPLE_BOLD + "--- Le combat commence dans la Shadow Arena ! ---"
@@ -161,9 +181,13 @@ public class Main {
             }
 
             if (!activeMonster.isAlive()) {
+                pl.gainExperience(50);
                 ConsoleUtils.slowPrint("\n" + ConsoleColors.GREEN_BOLD + "FÉLICITATIONS ! Le " + activeMonster.getName()
                         + " a été vaincu !" + ConsoleColors.RESET);
                 defeatedMonsters++;
+
+                ConsoleUtils
+                        .slowPrint(ConsoleColors.GREEN + "Vous gagnez 50 points d'expérience !" + ConsoleColors.RESET);
 
                 Grenade loot = new Grenade();
                 inventory.add(loot);
@@ -175,6 +199,9 @@ public class Main {
                             + "Un nouveau monstre apparaît pour venger son camarade !" + ConsoleColors.RESET);
                     activeMonster = getRandomMonster(rd);
                 }
+
+                SaveManager.savePlayer(new PlayerSave(pl, defeatedMonsters, inventory,
+                    pl.isAmuletteActive(), lowHealthPotionGiven, lowManaPotionGiven, amuletteGiven), playerName);
             } else {
                 ConsoleUtils
                         .slowPrint("\n" + ConsoleColors.YELLOW_BOLD + "--- TOUR DE L'ENNEMI ---" + ConsoleColors.RESET);
