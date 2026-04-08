@@ -6,6 +6,8 @@ import com.rpg.items.*;
 import java.util.Scanner;
 import java.util.Random;
 import java.util.ArrayList;
+import java.time.Duration;
+import java.time.Instant;
 
 public class Main {
     public static void main(String[] args) {
@@ -112,7 +114,24 @@ public class Main {
             }
 
             ConsoleUtils.slowPrintNoLine("Que faites-vous ? ");
+
+            Instant start = Instant.now();
+
             String action = sc.nextLine();
+
+            Instant end = Instant.now();
+            Duration timeElapsed = Duration.between(start, end);
+            if (timeElapsed.toSeconds() > 15) {
+                ConsoleUtils.slowPrint(ConsoleColors.RED
+                        + "Trop lent ! Le monstre en profite pour attaquer en premier !" + ConsoleColors.RESET);
+                activeMonster.attack(pl);
+                if (!pl.isAlive()) {
+                    ConsoleUtils.slowPrint("\n" + ConsoleColors.RED_BOLD + "DOMMAGE ! " + pl.getName()
+                            + " a succombé dans l'arène..." + ConsoleColors.RESET);
+                    break;
+                }
+                continue;
+            }
 
             if (action.equals("1")) {
                 pl.attack(activeMonster);
