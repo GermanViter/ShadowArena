@@ -172,6 +172,9 @@ public class Main {
                         GameItem itemToUse = inventory.get(itemIndex);
                         itemToUse.use(pl, activeMonster);
                         inventory.remove(itemIndex);
+                        SaveManager.savePlayer(new PlayerSave(pl, defeatedMonsters, inventory,
+                                pl.isAmuletteActive(), lowHealthPotionGiven, lowManaPotionGiven, amuletteGiven),
+                                playerName);
                     } else {
                         ConsoleUtils.slowPrint(ConsoleColors.RED + "Action ou item invalide !" + ConsoleColors.RESET);
                     }
@@ -201,7 +204,7 @@ public class Main {
                 }
 
                 SaveManager.savePlayer(new PlayerSave(pl, defeatedMonsters, inventory,
-                    pl.isAmuletteActive(), lowHealthPotionGiven, lowManaPotionGiven, amuletteGiven), playerName);
+                        pl.isAmuletteActive(), lowHealthPotionGiven, lowManaPotionGiven, amuletteGiven), playerName);
             } else {
                 ConsoleUtils
                         .slowPrint("\n" + ConsoleColors.YELLOW_BOLD + "--- TOUR DE L'ENNEMI ---" + ConsoleColors.RESET);
@@ -221,6 +224,10 @@ public class Main {
                         + " a survécu à 3 vagues et triomphé de la Shadow Arena !" + ConsoleColors.RESET);
                 ConsoleUtils.slowPrint(ConsoleColors.CYAN_BOLD + "***********************************************"
                         + ConsoleColors.RESET);
+                defeatedMonsters = 0;
+                SaveManager.savePlayer(new PlayerSave(pl, defeatedMonsters, inventory,
+                        pl.isAmuletteActive(), lowHealthPotionGiven, lowManaPotionGiven, amuletteGiven), playerName);
+
                 break;
             }
             ConsoleUtils.slowPrint(ConsoleColors.PURPLE + "--------------------------------" + ConsoleColors.RESET);
