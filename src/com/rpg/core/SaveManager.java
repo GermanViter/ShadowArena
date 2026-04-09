@@ -60,13 +60,11 @@ public class SaveManager {
             if (element.isJsonObject()) {
                 JsonObject root = element.getAsJsonObject();
 
-                // Add className to Hero
                 JsonObject heroObj = root.getAsJsonObject("hero");
                 if (heroObj != null) {
                     heroObj.addProperty("className", data.getHero().getClass().getName());
                 }
 
-                // Add className to each item in inventory
                 JsonArray inventoryArray = root.getAsJsonArray("inventory");
                 if (inventoryArray != null) {
                     java.util.ArrayList<GameItem> items = data.getInventory();
