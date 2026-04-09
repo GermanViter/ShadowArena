@@ -7,99 +7,119 @@
 |____/|_| |_|\__,_|\__,_|\___/ \_/\_/_/   \_\_|  \___|_| |_|\__,_|
                                                                   
 ```
+## Sources
+
+- Documentation Gson : [https://google.github.io/gson/UserGuide.html](https://google.github.io/gson/UserGuide.html)
+- Couleurs ANSI en Java : [https://stackoverflow.com/questions/35673302/java-typewriter-effect](https://stackoverflow.com/questions/35673302/java-typewriter-effect)
+- Mot-clé `instanceof` : [https://www.w3schools.com/java/ref_keyword_instanceof.asp](https://www.w3schools.com/java/ref_keyword_instanceof.asp)
+- Makefile (manuel GNU) : [https://www.gnu.org/software/make/manual/make.html#Simple-Makefile](https://www.gnu.org/software/make/manual/make.html#Simple-Makefile)
+- Makefile (commandes shell) : [https://stackoverflow.com/questions/10024279/how-to-use-shell-commands-in-makefile](https://stackoverflow.com/questions/10024279/how-to-use-shell-commands-in-makefile)
+- Concept du jeu (inspiration) : [https://fr.wikipedia.org/wiki/Donjons_et_Dragons](https://fr.wikipedia.org/wiki/Donjons_et_Dragons)
+
+## Description
+Le concept de ce jeu vient de [donjon et dragons](https://fr.wikipedia.org/wiki/Donjons_et_Dragons). La seule différence avec le jeu de société c'est que le maître du jeu est random. C'est à dire que les événements du jeu comme les apparitions de monstres sont totalement aléatoires.
 
 ---
 
-## Pour commencer, mes sources:
-- Documentation pour l'utilisation de gson : [https://google.github.io/gson/UserGuide.html](https://google.github.io/gson/UserGuide.html)
-- Documentation pour les couleurs ANSI : [https://stackoverflow.com/questions/35673302/java-typewriter-effect](https://stackoverflow.com/questions/35673302/java-typewriter-effect)
+## Choix de héros
 
+| Type de héros | ATQ | HP  | Mana | SPE                                              |
+| ------------- | --- | --- | ---- | ------------------------------------------------ |
+| Mage          | 40  | 400 | 600  | `regenerate()` : soigne 50% HP (coûte 80 mana)  |
+| Knight        | 35  | 450 | 600  | `heavyAttack()` : 85 dégâts fixes (coûte 80 mana)|
+| Berserker     | 50+ | 500 | 200  | `enableBerserkMode()` : dégâts x2, HP x2 pour 3 tours (coûte 100 mana) |
 
-## Concept du Jeu
-**Shadow Arena** est un RPG inspire de [donjons et dragons](https://fr.wikipedia.org/wiki/Donjons_et_Dragons) ou le maitre du jeu est aleatoire. 
-
-
-### Fonctionnalités Clés :
-- **Système de Mana** : Toutes les capacités spéciales et la défense consomment du mana. Gérez vos ressources avec soin !
-- **Inventaire & Loot** : Récupérez des **Grenades** sur les cadavres de vos ennemis et recevez une **Potion de survie** unique si vos points de vie tombent trop bas.
-- **Vagues Aléatoires** : Affrontez un bestiaire varié allant du simple Gobelin au terrifiant Cerbère.
-- **Effets Visuels & Typewriter** : Interface dynamique avec couleurs ANSI et affichage progressif du texte pour une immersion totale.
+> **Défense** : disponible pour tous les héros. Bloque 100% des dégâts du prochain tour. Coûte **60 mana**.
 
 ---
 
-## ⚔️ Classes de Héros
+## Bestiaire
 
-| Classe  | HP  | Mana | Capacité Spéciale |
-| :---    | :-- | :--- | :--- |
-| **Mage**    | 400 | 200  | **Régénération** (80 Mana) : Soigne tous les HP. |
-| **Knight** | 450 | 200  | **Attaque Lourde** (80 Mana) : Inflige +10 dégâts bonus. |
-| **Berserker** | 500 | 200 | **Rage Berserk** (100 Mana) : HP augmentés et dégâts doublés pendant 3 tours. |
+| Monstre          | HP  | Dégâts par tour |
+| ---------------- | --- | --------------- |
+| Gobelin Sournois | 80  | 15              |
+| Serpent Géant    | 220 | 25              |
+| Troll des Montagnes | 200 | 20           |
+| Cerbère          | 160 | 28              |
+| Dragon Ancien    | 350 | 35              |
 
-*Note : La **Défense** consomme 60 Mana et bloque 100% des dégâts du prochain tour.*
-
----
-
-## Bestiaire de l'Arène
-L'arène génère aléatoirement l'un des monstres suivants :
-- **Gobelin Sournois** (50 HP) : Faible mais vicieux.
-- **Serpent Géant** (80 HP) : Rapide et venimeux.
-- **Troll des Montagnes** (150 HP) : Une brute massive et résistante.
-- **Cerbère** (200 HP) : Le gardien des enfers, trois têtes et des flammes.
-- **Dragon Ancien** (300 HP) : Le plus dur
+Chaque monstre possède un tableau de **4 messages d'attaque aléatoires** (`getRandomAttackMessage()`).
 
 ---
 
-## Système d'Objets
-- **Potion de Soin** : Restaure 80 HP (donnée une seule fois si HP < 50%).
-- **Grenade** : Inflige 150 points de dégâts massifs à la cible.
+## Système d'objets
+
+| Item          | Type        | Effet                                      | Obtention                              |
+| ------------- | ----------- | ------------------------------------------ | -------------------------------------- |
+| Potion de soin | HealingItem | +80 HP                                    | Donnée 1 fois quand HP < 50% du max   |
+| Potion de mana | HealingItem | +50 Mana                                  | Donnée 1 fois quand Mana < 50% du max |
+| Grenade       | AttackItem  | 150 dégâts sur la cible                    | Droppée sur chaque monstre vaincu     |
+| Amulette      | BuffItem    | +40 dégâts par attaque, mais -10 HP/tour  | Apparition aléatoire (1/20 de chance) |
 
 ---
 
-## Concepts POO Démontrés
-1.  **Abstraction** : Classe `GameCharacter` et `GameItem` abstraites.
-2.  **Encapsulation** : Usage rigoureux de `private` avec getters/setters.
-3.  **Héritage** : Hiérarchie complexe (`GameItem` -> `AttackItem` -> `Grenade`).
-4.  **Polymorphisme** : Surcharge de `attack()` et `use()` selon l'entité ou l'objet.
-5.  **Interfaces** : `MageAbilities`, `KnightAbilities` et `BerserkerAbilities`.
+## Système de progression (XP & Niveaux)
+
+- Chaque monstre vaincu donne **50 XP**.
+- Un **level up** se produit à chaque **150 XP** accumulés.
+- À chaque niveau :
+  - `damage += 5`
+  - `maxHP += 20` (et HP restaurés au max)
+  - `maxMana += 10` (et Mana restauré au max)
 
 ---
 
-## Structure du Projet
-``` Text
-.
-└── com
-    └── rpg
-        ├── core
-        │   ├── ConsoleColors.java
-        │   ├── ConsoleUtils.java
-        │   ├── GameCharacter.java
-        │   ├── GameItem.java
-        │   ├── KnightAbilities.java
-        │   ├── MageAbilities.java
-        │   └── BerserkerAbilities.java
-        ├── entities
-        │   ├── Berserker.java
-        │   ├── Cerberus.java
-        │   ├── Dragon.java
-        │   ├── GiantSnake.java
-        │   ├── Goblin.java
-        │   ├── Hero.java
-        │   ├── Knight.java
-        │   ├── Mage.java
-        │   ├── Monster.java
-        │   ├── Troll.java
-        │   └── ...
-        ├── items
-        │   ├── AttackItem.java
-        │   ├── Grenade.java
-        │   ├── HealingItem.java
-        │   └── Potion.java
-        └── main
-            └── Main.java
-```
+## Système de sauvegarde (JSON via Gson)
+
+- La sauvegarde se fait automatiquement après chaque monstre vaincu.
+- Les fichiers sont stockés dans le dossier `users_info/<nom>.json`.
+- **`PlayerSave.java`** : classe de données qui contient l'état complet de la partie :
+  - Le héros (type + stats)
+  - L'inventaire
+  - Le nombre de monstres vaincus
+  - Les flags de progression (`lowHealthPotionGiven`, `lowManaPotionGiven`, `amuletteGiven`)
+- **`SaveManager.java`** : gère la sérialisation/désérialisation avec **Gson** et des `JsonDeserializer` custom pour reconstruire les bonnes sous-classes (`Mage`, `Knight`, etc.) depuis le JSON.
+
 ---
 
-## Lancement
-```bash
-make compile && make run
-```
+## Structure du projet
+
+Le projet est divisé en plusieurs packages qui ont des utilités différentes.
+
+- **`src.com.rpg.core`** contient les classes abstraites cœurs du jeu :
+  - `GameCharacter.java` (abstraite) : attributs communs à tous les personnages (`name`, `currentHP`, `maxHP`, `mana`, `maxMana`, `isDefending`, `isAmuletteActive`). Méthode abstraite `attack()`.
+  - `GameItem.java` (abstraite) : attributs communs à tous les items (`name`, `description`, `message`). Méthode abstraite `use()`.
+  - `ConsoleColors.java` : constantes pour les codes ANSI de couleur.
+  - `ConsoleUtils.java` : méthodes utilitaires `slowPrint()` et `slowPrintNoLine()` pour l'effet typewriter.
+  - `PlayerSave.java` : contient l'état de jeu à sauvegarder.
+  - `SaveManager.java` : lecture/écriture JSON avec Gson.
+  - Interfaces : `MageAbilities`, `KnightAbilities`, `BerserkerAbilities`.
+
+- **`src.com.rpg.entities`** contient les entités qui héritent de `GameCharacter` :
+  - `Hero.java` (abstraite) : ajoute `damage`, `level`, `experience`, `levelUp()`, `gainExperience()`.
+  - `Mage`, `Knight`, `Berserker` : héros jouables, implémentent leur interface respective.
+  - `Monster.java` (abstraite) : ajoute `attackMessages[]` et `isDead`.
+  - `Goblin`, `GiantSnake`, `Troll`, `Cerberus`, `Dragon` : monstres avec leurs propres stats et dégâts.
+
+- **`src.com.rpg.items`** contient la hiérarchie des items :
+  - `AttackItem.java` (abstraite) → `Grenade.java`
+  - `HealingItem.java` (abstraite) → `Potion.java`, `ManaPotion.java`
+  - `BuffItem.java` (abstraite) → `Amulette.java`
+
+- **`src.com.rpg.main`** contient `Main.java` avec la boucle de combat principale et la logique de jeu.
+
+- Un **Makefile** est fourni pour faciliter la compilation (`make compile && make run`).
+
+---
+
+## Concepts POO démontrés
+
+1. **Abstraction** : `GameCharacter` et `GameItem` sont abstraites — on ne peut pas les instancier directement.
+2. **Encapsulation** : tous les attributs sont `private`, accessibles uniquement via getters/setters.
+3. **Héritage** : hiérarchie à plusieurs niveaux, ex: `GameItem` → `AttackItem` → `Grenade`, ou `GameCharacter` → `Hero` → `Mage`.
+4. **Polymorphisme** : `attack()` et `use()` sont redéfinies (`@Override`) dans chaque sous-classe. Le `instanceof` dans `Main.java` permet d'appeler la bonne capacité spéciale.
+5. **Interfaces** : `MageAbilities` (`regenerate()`), `KnightAbilities` (`heavyAttack()`), `BerserkerAbilities` (`enableBerserkMode()`, `disableBerserkMode()`).
+
+---
+
+
