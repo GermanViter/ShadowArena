@@ -86,7 +86,7 @@ Chaque monstre possède un tableau de **4 messages d'attaque aléatoires** (`get
 
 Le projet est divisé en plusieurs packages qui ont des utilités différentes.
 
-- **`src.com.rpg.core`** contient les classes abstraites cœurs du jeu :
+- ### **`src.com.rpg.core`** contient les classes abstraites cœurs du jeu :
   - `GameCharacter.java` (abstraite) : attributs communs à tous les personnages (`name`, `currentHP`, `maxHP`, `mana`, `maxMana`, `isDefending`, `isAmuletteActive`). Méthode abstraite `attack()`.
   - `GameItem.java` (abstraite) : attributs communs à tous les items (`name`, `description`, `message`). Méthode abstraite `use()`.
   - `ConsoleColors.java` : constantes pour les codes ANSI de couleur.
@@ -95,20 +95,20 @@ Le projet est divisé en plusieurs packages qui ont des utilités différentes.
   - `SaveManager.java` : lecture/écriture JSON avec Gson.
   - Interfaces : `MageAbilities`, `KnightAbilities`, `BerserkerAbilities`.
 
-- **`src.com.rpg.entities`** contient les entités qui héritent de `GameCharacter` :
+- ### **`src.com.rpg.entities`** contient les entités qui héritent de `GameCharacter` :
   - `Hero.java` (abstraite) : ajoute `damage`, `level`, `experience`, `levelUp()`, `gainExperience()`.
   - `Mage`, `Knight`, `Berserker` : héros jouables, implémentent leur interface respective.
   - `Monster.java` (abstraite) : ajoute `attackMessages[]` et `isDead`.
   - `Goblin`, `GiantSnake`, `Troll`, `Cerberus`, `Dragon` : monstres avec leurs propres stats et dégâts.
 
-- **`src.com.rpg.items`** contient la hiérarchie des items :
+- ### **`src.com.rpg.items`** contient la hiérarchie des items :
   - `AttackItem.java` (abstraite) → `Grenade.java`
   - `HealingItem.java` (abstraite) → `Potion.java`, `ManaPotion.java`
   - `BuffItem.java` (abstraite) → `Amulette.java`
 
-- **`src.com.rpg.main`** contient `Main.java` avec la boucle de combat principale et la logique de jeu.
+- ### **`src.com.rpg.main`** contient `Main.java` avec la boucle de combat principale et la logique de jeu.
 
-- Un **Makefile** est fourni pour faciliter la compilation (`make compile && make run`).
+- ### Un **Makefile** est fourni pour faciliter la compilation (`make compile && make run`).
 
 ---
 
