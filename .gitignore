@@ -28,6 +28,7 @@ bin/
 
 ### User information ###
 *.json
+*.jar
 
 
 ### Mac OS ###
