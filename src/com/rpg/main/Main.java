@@ -133,11 +133,21 @@ public class Main {
                 }
             }
 
+            ConsoleUtils.slowPrint(ConsoleColors.RED_BOLD + "[Q] Sauvegarder et quitter" + ConsoleColors.RESET);
+
             ConsoleUtils.slowPrintNoLine("Que faites-vous ? ");
 
             Instant start = Instant.now();
 
             String action = sc.nextLine();
+
+            if (action.toUpperCase().equals("Q")) {
+                SaveManager.savePlayer(new PlayerSave(pl, defeatedMonsters, inventory,
+                        pl.isAmuletteActive(), lowHealthPotionGiven, lowManaPotionGiven, amuletteGiven), playerName);
+                ConsoleUtils.slowPrint(ConsoleColors.GREEN + "Partie sauvegardée. À bientôt dans la Shadow Arena !"
+                        + ConsoleColors.RESET);
+                break;
+            }
 
             Instant end = Instant.now();
             Duration timeElapsed = Duration.between(start, end);
