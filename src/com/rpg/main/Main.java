@@ -44,6 +44,9 @@ public class Main {
                 lowManaPotionGiven = savedData.isLowManaPotionGiven();
                 amuletteGiven = savedData.isAmuletteGiven();
                 ConsoleUtils.slowPrint(ConsoleColors.GREEN + "Sauvegarde chargée avec succès !" + ConsoleColors.RESET);
+            } else if (loadChoice.equals("2")) {
+                ConsoleUtils.slowPrint(ConsoleColors.YELLOW + "Choisissez votre hero : "
+                        + ConsoleColors.RESET);
             }
         }
 
