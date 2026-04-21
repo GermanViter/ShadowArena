@@ -37,11 +37,17 @@ public class Main {
             String loadChoice = sc.nextLine();
             if (loadChoice.equals("1")) {
                 PlayerSave savedData = SaveManager.loadPlayer(playerName);
+
                 pl = savedData.getHero();
+
                 defeatedMonsters = savedData.getDefeatedMonsters();
+
                 inventory = savedData.getInventory();
+
                 lowHealthPotionGiven = savedData.isLowHealthPotionGiven();
+
                 lowManaPotionGiven = savedData.isLowManaPotionGiven();
+
                 amuletteGiven = savedData.isAmuletteGiven();
                 ConsoleUtils.slowPrint(ConsoleColors.GREEN + "Sauvegarde chargée avec succès !" + ConsoleColors.RESET);
             } else if (loadChoice.equals("2")) {
