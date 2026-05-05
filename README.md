@@ -21,6 +21,14 @@ Le concept de ce jeu vient de [donjon et dragons](https://fr.wikipedia.org/wiki/
 
 ---
 
+## Installation
+- Telechargez le fichier [.jar](https://repo1.maven.org/maven2/com/google/code/gson/gson/2.14.0/gson-2.14.0.jar) pour pouvoir utiliser le systeme de sauvegarde
+- Ecrivez `make compile && make run` dans le terminal
+- Profitez!
+
+---
+
+
 ## Choix de héros
 
 | Type de héros | ATQ | HP  | Mana | SPE                                              |

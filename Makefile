@@ -4,7 +4,7 @@ JAVA = java
 SRC_DIR = src
 BIN_DIR = out
 MAIN_CLASS = com.rpg.main.Main
-CLASSPATH = "gson-2.10.1.jar"
+CLASSPATH = "gson-2.14.0.jar"
 
 # Find all .java files
 SOURCES := $(shell find $(SRC_DIR) -name "*.java")
