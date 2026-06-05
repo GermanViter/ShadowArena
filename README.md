@@ -22,7 +22,7 @@ Le concept de ce jeu vient de [donjon et dragons](https://fr.wikipedia.org/wiki/
 ---
 
 ## Installation
-- Telechargez le fichier [.jar](https://repo1.maven.org/maven2/com/google/code/gson/gson/2.14.0/gson-2.14.0.jar) pour pouvoir utiliser le systeme de sauvegarde
+- Telechargez le fichier [.jar](https://repo1.maven.org/maven2/com/google/code/gson/gson/2.14.0/gson-2.14.0.jar) pour pouvoir utiliser le systeme de sauvegarde et mettez le dans le dossier de l'application
 - Ecrivez `make compile && make run` dans le terminal
 - Profitez!
 
